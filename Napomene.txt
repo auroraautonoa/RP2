@@ -1,0 +1,7 @@
+1. create_tables 
+	nisam sigurna treba li vremensku prognozu dodat da ima u bazi i kako
+	slike eventa u bazi?
+	
+2. db.class promijenit spajanje na bazu
+
+3. slike korisnika??
