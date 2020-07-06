@@ -3,8 +3,8 @@
 require_once __DIR__ . '/db.class.php';
 
 seed_table_users();
-//seed_table_events();
-//seed_table_komentari();
+seed_table_events();
+seed_table_komentari();
 
 // ------------------------------------------
 function seed_table_users()
@@ -13,7 +13,7 @@ function seed_table_users()
 
 	try
 	{
-		$st = $db->prepare( 'INSERT INTO users(name, surname, password, username, email, registered_sequence, registered) VALUES (:name, :surname, :password, :username, :email, \'abc\', 1)' );
+		$st = $db->prepare( 'INSERT INTO users(name, surname, password, username, email) VALUES (:name, :surname, :password, :username, :email)' );
 
 		$st->execute( array( 'name' => 'Pero', 'surname' => 'Perić', 'username' => 'pperic', 'email' => 'pero.peric@gmail.com', 'password' => password_hash( 'perinasifra', PASSWORD_DEFAULT ) ) );
 		$st->execute( array( 'name' => 'Mirko', 'surname' => 'Mirić', 'username' => 'mmiric', 'email' => 'mirko.miric@gmail.com', 'password' => password_hash( 'mirkovasifra', PASSWORD_DEFAULT ) ) );

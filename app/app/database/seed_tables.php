@@ -1,90 +1,37 @@
 <?php
 
-//require_once '../../model/db.class.php';
-require_once '../../app/db.class.php';
+require_once __DIR__ . '/db.class.php';
 
-$db = DB::getConnection();
+seed_table_users();
+//seed_table_events();
+//seed_table_komentari();
 
-try
+// ------------------------------------------
+function seed_table_users()
 {
-	$st = $db->prepare(
-		'CREATE TABLE IF NOT EXISTS users (' .
-		'id int NOT NULL PRIMARY KEY AUTO_INCREMENT,' .
-		'name varchar(50) NOT NULL,' .
-		'surname varchar(50) NOT NULL,' .
-		'username varchar(50) NOT NULL,' .
-		'e-mail varchar(50) NOT NULL,' .
-		'password varchar(255) NOT NULL)'
-	);
+	$db = DB::getConnection();
 
-	$st->execute();
+	try
+	{
+		$st = $db->prepare( 'INSERT INTO users(name, surname, password, username, email, registered_sequence, registered) VALUES (:name, :surname, :password, :username, :email, \'abc\', 1)' );
+
+		$st->execute( array( 'name' => 'Pero', 'surname' => 'Perić', 'username' => 'pperic', 'email' => 'pero.peric@gmail.com', 'password' => password_hash( 'perinasifra', PASSWORD_DEFAULT ) ) );
+		$st->execute( array( 'name' => 'Mirko', 'surname' => 'Mirić', 'username' => 'mmiric', 'email' => 'mirko.miric@gmail.com', 'password' => password_hash( 'mirkovasifra', PASSWORD_DEFAULT ) ) );
+		$st->execute( array( 'name' => 'Slavko', 'surname' => 'Slavić', 'username' => 'sslavic', 'email' => 'slavko.slavic@gmail.com', 'password' => password_hash( 'slavkovasifra', PASSWORD_DEFAULT ) ) );
+		$st->execute( array( 'name' => 'Ana', 'surname' => 'Anić', 'username' => 'aanic', 'email' => 'ana.anic@gmail.com', 'password' => password_hash( 'aninasifra', PASSWORD_DEFAULT ) ) );
+		$st->execute( array( 'name' => 'Maja', 'surname' => 'Majić', 'username' => 'mmajic', 'email' => 'maja.majic@gmail.com', 'password' => password_hash( 'majinasifra', PASSWORD_DEFAULT ) ) );
+	}
+	catch( PDOException $e ) { exit( "PDO error (seed_table_users): " . $e->getMessage() ); }
+
+	echo "Ubacio korisnike u tablicu users.<br />";
 }
-catch( PDOException $e ) { exit( "PDO error #1: " . $e->getMessage() ); }
 
-echo "Napravio tablicu users.<br />";
 
-try
+function seed_table_events()
 {
-	$st = $db->prepare(
-		'CREATE TABLE IF NOT EXISTS events (' .
-		'id int NOT NULL PRIMARY KEY AUTO_INCREMENT,' .
-		'autor varchar(50) NOT NULL,' .
-		'dolazi INT,' .
-		'zanima INT,' .
-		'mjesto varchar(50) NOT NULL,' .
-		'kategorija varchar(50) NOT NULL,' .
-		//'vrijeme varchar(50) NOT NULL,' .
-		'vrijeme_pocetak TIME NOT NULL,'.
-		'vrijeme_kraj TIME NOT NULL,'.
-		'datum_pocetak DATE NOT NULL,'.
-		'datum_kraj DATE NOT NULL,'.
-		'title varchar(50) NOT NULL)'
-	);
+	$db = DB::getConnection();
 
-	$st->execute();
-}
-catch( PDOException $e ) { exit( "PDO error #2: " . $e->getMessage() ); }
-
-echo "Napravio tablicu events.<br />";
-
-
-try
-{
-	$st = $db->prepare(
-		'CREATE TABLE IF NOT EXISTS komentari (' .
-		'id int NOT NULL PRIMARY KEY AUTO_INCREMENT,' .
-		'id_user INT NOT NULL,' .
-		'id_event INT NOT NULL,' .
-		'opis varchar(255) NOT NULL,' .
-		'zvjezdice INT NOT NULL,' .
-		'vrijeme_objave DATE NOT NULL)'
-	);
-
-	$st->execute();
-}
-catch( PDOException $e ) { exit( "PDO error #3: " . $e->getMessage() ); }
-
-echo "Napravio tablicu komentari.<br />";
-
-
-// Ubaci neke korisnike unutra
-try
-{
-	$st = $db->prepare( 'INSERT INTO users(name, surname, password, username, email) VALUES (:name, :surname, :password, :username, :email)' );
-
-	$st->execute( array( 'name' => 'Pero', 'surname' => 'Perić', 'username' => 'pperic', 'email' => 'pero.peric@gmail.com', 'password' => password_hash( 'perinasifra', PASSWORD_DEFAULT ) ) );
-	$st->execute( array( 'name' => 'Mirko', 'surname' => 'Mirić', 'username' => 'mmiric', 'email' => 'mirko.miric@gmail.com', 'password' => password_hash( 'mirkovasifra', PASSWORD_DEFAULT ) ) );
-	$st->execute( array( 'name' => 'Slavko', 'surname' => 'Slavić', 'username' => 'sslavic', 'email' => 'slavko.slavic@gmail.com', 'password' => password_hash( 'slavkovasifra', PASSWORD_DEFAULT ) ) );
-	$st->execute( array( 'name' => 'Ana', 'surname' => 'Anić', 'username' => 'aanic', 'email' => 'ana.anic@gmail.com', 'password' => password_hash( 'aninasifra', PASSWORD_DEFAULT ) ) );
-	$st->execute( array( 'name' => 'Maja', 'surname' => 'Majić', 'username' => 'mmajic', 'email' => 'maja.majic@gmail.com', 'password' => password_hash( 'majinasifra', PASSWORD_DEFAULT ) ) );
-}
-catch( PDOException $e ) { exit( "PDO error #4: " . $e->getMessage() ); }
-
-echo "Ubacio korisnike u tablicu users.<br />";
-
-
-// Ubaci neke evente unutra
-try
+	try
 	{
 		$st = $db->prepare( 'INSERT INTO events(autor, title, mjesto, kategorija, datum_pocetak, datum_kraj, vrijeme_pocetak, vrijeme_kraj, dolazi, zanima, opis) VALUES (:autor, :title, :mjesto, :kategorija, :datum_pocetak, :datum_kraj, :vrijeme_pocetak, :vrijeme_kraj, :dolazi, :zanima, :opis)' );
 
@@ -98,24 +45,30 @@ try
 		$st->execute( array( 'autor' => 'Slavko Slavić', 'title' => 'Advanced Applications of Developmental Functional Neurology', 'mjesto' => 'Split', 'kategorija' => 'Zdravlje', 'datum_pocetak' => '2020-09-16', 'datum_kraj' => '2020-09-20', 'vrijeme_pocetak' => '10:00:00', 'vrijeme_kraj' => '13:00:00', 'dolazi' => '17', 'zanima' => '169', 'opis' => 'Our dates are set! The 4 day European seminar experience with Drs Robert Melillo and Steve Williams will be held on September 16-20, 2020.' ) );
 		$st->execute( array( 'autor' => 'Ana Anić', 'title' => 'Okusi Pelješca', 'mjesto' => 'Pelješac', 'kategorija' => 'Hrana', 'datum_pocetak' => '2020-07-25', 'datum_kraj' => '2020-07-25', 'vrijeme_pocetak' => '16:00:00', 'vrijeme_kraj' => '21:00:00', 'dolazi' => '32', 'zanima' => '180', 'opis' => 'U Okusima Pelješca na Stonskoj placi  uživati ćete u raznolikoj paleti jela pripremljenih od ribe i morskih plodova, uz najomiljenije zvukove dalmatinske glazbe i veliki izbor vrhunskih peljeških vina prezentiranih od lokalnih vinara. ' ) );
 	}
-catch( PDOException $e ) { exit( "PDO error #5: " . $e->getMessage() ); }
+	catch( PDOException $e ) { exit( "PDO error (seed_table_events): " . $e->getMessage() ); }
 
-echo "Ubacio evente u tablicu events.<br />";
-
-
-// Ubaci neke komentare unutra 
-try
-{
-	$st = $db->prepare( 'INSERT INTO komentari(id_user, id_event, vrijeme_objave, opis, zvjezdice) VALUES (:id_user, :id_event, :vrijeme_objave, :opis, :zvjezdice)' );
-
-	$st->execute( array( 'id_user' => 3, 'id_event' => 1, 'vrijeme_objave' => '2020-15-07 00:38:54.840', 'opis' => 'Sve je bilo super, osim predugog reda za cugu...', 'zvjezdice' => '3') );
-	$st->execute( array( 'id_user' => 4, 'id_event' => 2, 'vrijeme_objave' => '2020-06-02 10:15:54.840', 'opis' => 'SUper atmosfera!', 'zvjezdice' => '5') );
-	$st->execute( array( 'id_user' => 1, 'id_event' => 4, 'vrijeme_objave' => '2020-08-01 18:54:54.840', 'opis' => 'Sve pohvale organizatorima, ali iduce godine osigurati vise camping mjesta.', 'zvjezdice' => '4') );
-	$st->execute( array( 'id_user' => 1, 'id_event' => 10, 'vrijeme_objave' => '2020-07-26 07:06:54.840', 'opis' => 'Neorganizirano, losa prezentacija hrane.', 'zvjezdice' => '2') );
-	$st->execute( array( 'id_user' => 2, 'id_event' => 9, 'vrijeme_objave' => '2020-10-01 19:23:54.840', 'opis' => 'Kvalitetan i poucan sadrzaj', 'zvjezdice' => '5') );
+	echo "Ubacio evente u tablicu events.<br />";
 }
-catch( PDOException $e ) { exit( "PDO error #5: " . $e->getMessage() ); }
 
-echo "Ubacio komentare u tablicu komentari.<br />";
+function seed_table_komentari()
+{
+	$db = DB::getConnection();
 
-?> 
+	try
+	{
+		$st = $db->prepare( 'INSERT INTO komentari(id_user, id_event, vrijeme_objave, opis, zvjezdice) VALUES (:id_user, :id_event, :vrijeme_objave, :opis, :zvjezdice)' );
+
+		$st->execute( array( 'id_user' => 3, 'id_event' => 1, 'vrijeme_objave' => '2020-15-07 00:38:54.840', 'opis' => 'Sve je bilo super, osim predugog reda za cugu...', 'zvjezdice' => '3') );
+		$st->execute( array( 'id_user' => 4, 'id_event' => 2, 'vrijeme_objave' => '2020-06-02 10:15:54.840', 'opis' => 'SUper atmosfera!', 'zvjezdice' => '5') );
+		$st->execute( array( 'id_user' => 1, 'id_event' => 4, 'vrijeme_objave' => '2020-08-01 18:54:54.840', 'opis' => 'Sve pohvale organizatorima, ali iduce godine osigurati vise camping mjesta.', 'zvjezdice' => '4') );
+		$st->execute( array( 'id_user' => 1, 'id_event' => 10, 'vrijeme_objave' => '2020-07-26 07:06:54.840', 'opis' => 'Neorganizirano, losa prezentacija hrane.', 'zvjezdice' => '2') );
+		$st->execute( array( 'id_user' => 2, 'id_event' => 9, 'vrijeme_objave' => '2020-10-01 19:23:54.840', 'opis' => 'Kvalitetan i poucan sadrzaj', 'zvjezdice' => '5') );
+	}
+	catch( PDOException $e ) { exit( "PDO error (seed_table_komentari): " . $e->getMessage() ); }
+
+	echo "Ubacio komentare u tablicu komentari.<br />";
+}
+
+
+
+?>

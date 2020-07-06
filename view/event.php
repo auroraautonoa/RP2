@@ -10,18 +10,33 @@
 
         </div>
     </div>
-	<table>
+	<?php echo $title ?>
+	<br>
+	<br>
+
+<table>
     <tr>
-        <th>Event</th>
+        <th>Komentar</th>
+	<th>Korisnik</th>
+	<th>Datum</th>
+	<th>Ocjena</th>
+
+
     </tr>
-	<?php
-		foreach( $eventList as $event ){
-        		echo '<tr>' .
-            		'<td><a href="index.php?rt=event/'.$event->name.'">'.$event->naslov.'</a></td>' .
-             		'</tr>'; 
-		}  
-	?>
+<form action="<?php echo 'index.php?rt=event/'.$title ?>" method="post">
+<?php
+	$i=0;
+    foreach( $commentList as $comment ){
+       	echo '<tr>' .
+        '<td>'. $comment->opis .'</td>' .
+	'<td>@'. $userList[$i] .'</td>' .
+	'<td>'. $comment->vrijeme_objave .'</td>' .
+	'<td>'.$comment->zvjezdice.'</td>';
+        '</tr>';
+	$i++;
+    }
+
+?>
         
-	</table>
-	
+</table>
 <?php require_once 'footer.php';?>

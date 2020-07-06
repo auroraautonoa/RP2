@@ -10,18 +10,14 @@
 		<ul>
             <li><i class='fas fa-align-justify' style='font-size:36px; margin-top:5px;margin-left:5px;'></i></li>
 	    <?php 
-		if( isset( $_SESSION['username'] ) ){
-	    		echo '<form action="index.php?rt=event/show_events" method="post">';
-            		echo '<li><button type="submit">EVENT CALENDAR</button></li>';
-		}
-		else{
-			echo '<form action="index.php?rt=login/show_events" method="post">';
-            		echo '<li><button type="submit">EVENT CALENDAR</button></li>';
-		}
+	    	echo '<form action="index.php?rt=event/show_events" method="post">';
+            	echo '<li><button type="submit">EVENT CALENDAR</button></li></form>';
+		
 	    ?>
             
             <?php if( isset( $_SESSION['username'] ) ){
-                    echo '<li style="float:right"><a href="logout.php">Log out</a></li>'; 
+		    echo '<form action="index.php?rt=event/logout" method="post">';
+                    echo '<li style="float:right"><button type="submit">Log out</button></li></form>'; 
                     echo '<li style="float:right"><i class="fa fa-user-circle" style="font-size:30px; margin-top:10px;"></i></li>';
                   }
                   else

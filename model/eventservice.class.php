@@ -3,6 +3,7 @@
 require __DIR__ . '/../app/database/db.class.php';
 require __DIR__ . '/user.class.php';
 require __DIR__ . '/event.class.php';
+require __DIR__ . '/comment.class.php';
 
 class EventService{
     public function getAllEvents(){
@@ -24,9 +25,9 @@ class EventService{
         $db = DB::getConnection();
         $st = $db->prepare('SELECT * FROM users');
         $st->execute();
-
-        while( $row = $st->fetch() )
+        while( $row = $st->fetch() ){
             $users[] = new User($row['id'], $row['name'], $row['surname'], $row['username'], $row['email'], $row['password'], $row['registered_sequence'], $row['registered']);
+	}
         
         return $users;
     }
@@ -35,7 +36,7 @@ class EventService{
         $comments = [];
 
         $db = DB::getConnection();
-        $st = $db->prepare('SELECT * FROM komentari WHERE id_event:=id_event ORDER BY vrijeme_objave');
+        $st = $db->prepare('SELECT * FROM komentari WHERE id_event=:id_event ORDER BY vrijeme_objave');
         $st->execute(['id_event' => $id_event]);
 
         while ($row = $st->fetch())
@@ -84,27 +85,24 @@ class EventService{
         $db = DB::getConnection();
         try{
             $st = $db->prepare('INSERT INTO users(name, surname, username, email, password, 
-                            registered_sequence, registered) VALUES (:name, :surname, :username
-                            :password, :email, :registered_sequence, 0)');
-            $st->execute(array('name' => $name, 'surname' => $surname, 'username' => $username,
-                            'password' => password_hash($password, PASSWORD_DEFAULT), 
-                            'email' => $email, 'registration_sequence' => $registration_sequence));
+                            registered_sequence, registered) VALUES (:name, :surname, :username, :email, :password, :registration_sequence, 0)');
+            $st->execute(array('name' => $name, 'surname' => $surname, 'username' => $username, 'email' => $email, 'password' => password_hash($password, PASSWORD_DEFAULT ), 'registration_sequence' => $registration_sequence ));
         }catch( PDOException $e ) { exit( 'PDO Error: ' . $e->getMessage() ); }
         $recipient = $email;
         $subject = 'Registracijski mail - Event Management';
-        $message = 'Poštovani ' . $username . '!\n\n Za dovršetak registracije kliknite na sljedeći link: ';
-        $message .= 'http://' . $_SERVER['SERVER_NAME'] . htmlentities( dirname( $_SERVER['PHP_SELF'] ) ) . '/chat.php?rt=' . $registration_sequence . "\n";
+        $message = 'Postovani ' . $username . '! Za dovrsetak registracije kliknite na sljedeci link: ';
+        $message .= 'http://' . $_SERVER['SERVER_NAME'] . htmlentities( dirname( $_SERVER['PHP_SELF'] ) ) . '/index.php?rt=' . $registration_sequence . "\n";
         $headers  = 'From: rp2@studenti.math.hr' . "\r\n" .
 		            'Reply-To: rp2@studenti.math.hr' . "\r\n" .
                     'X-Mailer: PHP/' . phpversion();
         
-        $isOK = mail($to, $subject, $message, $headers);  
+        $isOK = mail($recipient , $subject, $message, $headers);  
         return $isOK;   
     }
 
     public function getUserByUsername($username){
         $db = DB::getConnection();
-		$st = $db->prepare('SELECT * FROM users WHERE username=:username');
+	$st = $db->prepare('SELECT * FROM users WHERE username=:username');
         $st->execute(['username' => $username]);
         
         $row = $st->fetch();
@@ -113,4 +111,14 @@ class EventService{
 
         return $user;
     }
+
+    public function final_register($email){
+		$value=1;
+            	$db = DB::getConnection();
+            	$st = $db->prepare( 'UPDATE users SET registered=? WHERE email=?' );
+		$st->bindParam(1,$value);
+		$st->bindParam(2,$email, PDO::PARAM_STR);
+            	$st->execute();
+	}
+
 }

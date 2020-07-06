@@ -1,16 +1,16 @@
 <?php
     class User{
-        protected  $id, $name, $surname, $username, $email, $password, $registered, $registered_sequence;
+        protected  $id, $name, $surname, $username, $email, $password, $registration_sequence, $registered;
 
-        public function __construct($id, $name, $surname, $username, $email, $password){
+        public function __construct($id, $name, $surname, $username, $email, $password, $registration_sequence, $registered){
             $this->id = $id;
             $this->username = $username;
             $this->name = $name;
             $this->surname = $surname;
             $this->email = $email;
-            $this->password = $password;
-            $this->registered = 0;
-            $this->registered_sequence = 'abc';
+            $this->password= $password;
+	    $this->registration_sequence = $registration_sequence;
+	    $this->registered = $registered;
         }
 
         public function __get( $property ){
