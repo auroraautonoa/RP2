@@ -10,5 +10,29 @@
 
         </div>
     </div>
-	<?php echo $message ?>
+	<table>
+    <tr>
+        <th>Event</th>
+    </tr>
+	<?php
+	if( isset($_POST['username']) ){
+		foreach( $eventList as $event ){
+        		echo '<tr>' .
+            		'<td><a href="index.php?rt=event/'.$event->name.'">'.$event->naslov.'</a></td>' .
+             		'</tr>'; 
+		}
+	}
+	else{
+		foreach( $eventList as $event ){
+        		echo '<tr>' .
+            		'<td>'.$event->naslov.'</td>' .
+             		'</tr>'; 
+		}
+
+	}
+  
+	?>
+        
+	</table>
+	
 <?php require_once 'footer.php';?>
