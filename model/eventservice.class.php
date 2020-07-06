@@ -36,7 +36,7 @@ class EventService{
 
         $db = DB::getConnection();
         $st = $db->prepare('SELECT * FROM komentari WHERE id_event:=id_event ORDER BY vrijeme_objave');
-        $st->execute();
+        $st->execute(['id_event' => $id_event]);
 
         while ($row = $st->fetch())
             $comments[] = new Comment($row['id'], $row['id_user'], $row['id_event'], $row['opis'], $row['zvjezdice'], $row['vrijeme_objave']);
@@ -47,7 +47,7 @@ class EventService{
     public function getEventTitle($id_event){
         $db = DB::getConnection();
 		$st = $db->prepare('SELECT * FROM events WHERE id=:id_event');
-        $st->execute( );
+        $st->execute(['id_event' => $id_event]);
         
         $row = $st->fetch();
 
