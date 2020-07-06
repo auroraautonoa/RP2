@@ -62,4 +62,17 @@ class EventService{
         $st->execute(array('id_user' => $id_user, 'id_event' => $id_event, 'vrijeme_objave' => $date, 'opis' => $comment, 'zvjezdice' => $zvjezdice));
     }
 
+    public function insertEvent($autor, $dolazi, $zanima, $mjesto, $kategorija, $vrijeme_pocetak, 
+                    $vrijeme_kraj, $datum_pocetak, $datum_kraj, $naslov, $opis){
+                        
+        $db = DB::getConnection();
+        $st = $db->prepare( 'INSERT INTO events(autor, dolazi, zanima, mjesto, kategorija,
+                            vrijeme_pocetak, vrijeme_kraj, datum_pocetak, datum_kraj, naslov, opis)
+                            VALUES (:autor, :dolazi, :zanima, :mjesto, :kategorija,
+                            :vrijeme_pocetak, :vrijeme_kraj, :datum_pocetak, :datum_kraj, :naslov, :opis)');
+        $st->execute(array('autor' => $autor, 'dolazi' => $dolazi, 'zanima' => $zanima, 
+                        'mjesto' => $mjesto, 'kategorija' => $kategorija, 'vrijeme_pocetak' => $vrijeme_pocetak,
+                        'vrijeme_kraj' => $vrijeme_kraj, 'datum_pocetak' => $datum_pocetak,
+                        'datum_kraj' => $datum_kraj, 'naslov' => $naslov, 'opis' => $opis));    
+}
 }
