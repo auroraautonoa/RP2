@@ -26,7 +26,7 @@ class EventService{
         $st->execute();
 
         while( $row = $st->fetch() )
-            $users[] = new User($row['id'], $row['name'], $row['surname'], $row['username'], $row['email'], $row['password']);
+            $users[] = new User($row['id'], $row['name'], $row['surname'], $row['username'], $row['email'], $row['password'], $row['registered_sequence'], $row['registered']);
         
         return $users;
     }
@@ -74,5 +74,43 @@ class EventService{
                         'mjesto' => $mjesto, 'kategorija' => $kategorija, 'vrijeme_pocetak' => $vrijeme_pocetak,
                         'vrijeme_kraj' => $vrijeme_kraj, 'datum_pocetak' => $datum_pocetak,
                         'datum_kraj' => $datum_kraj, 'naslov' => $naslov, 'opis' => $opis));    
-}
+    }
+
+    public function register($name, $surname, $username, $password, $email){
+        $registration_sequence = '';
+        for( $i = 0; $i < 20; ++$i )
+            $registration_sequence .= chr( rand(0, 25) + ord( 'a' ) );
+        
+        $db = DB::getConnection();
+        try{
+            $st = $db->prepare('INSERT INTO users(name, surname, username, email, password, 
+                            registered_sequence, registered) VALUES (:name, :surname, :username
+                            :password, :email, :registered_sequence, 0)');
+            $st->execute(array('name' => $name, 'surname' => $surname, 'username' => $username,
+                            'password' => password_hash($password, PASSWORD_DEFAULT), 
+                            'email' => $email, 'registration_sequence' => $registration_sequence));
+        }catch( PDOException $e ) { exit( 'PDO Error: ' . $e->getMessage() ); }
+        $recipient = $email;
+        $subject = 'Registracijski mail - Event Management';
+        $message = 'Poštovani ' . $username . '!\n\n Za dovršetak registracije kliknite na sljedeći link: ';
+        $message .= 'http://' . $_SERVER['SERVER_NAME'] . htmlentities( dirname( $_SERVER['PHP_SELF'] ) ) . '/chat.php?rt=' . $registration_sequence . "\n";
+        $headers  = 'From: rp2@studenti.math.hr' . "\r\n" .
+		            'Reply-To: rp2@studenti.math.hr' . "\r\n" .
+                    'X-Mailer: PHP/' . phpversion();
+        
+        $isOK = mail($to, $subject, $message, $headers);  
+        return $isOK;   
+    }
+
+    public function getUserByUsername($username){
+        $db = DB::getConnection();
+		$st = $db->prepare('SELECT * FROM users WHERE username=:username');
+        $st->execute(['username' => $username]);
+        
+        $row = $st->fetch();
+
+        $user = new User($row['id'], $row['name'], $row['surname'], $row['username'], $row['email'], $row['password'], $row['registered_sequence'], $row['registered']);
+
+        return $user;
+    }
 }
