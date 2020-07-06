@@ -1,5 +1,6 @@
 <?php require_once 'header.php'; ?>
 
+	<form action="index.php?rt=login/try_register" method="post">
     <div class="div-main" >
         <div class="div-table">
         <table>
@@ -28,5 +29,8 @@
     <button class="button" id="btnRegistracija" type="submit">REGISTRIRAJ SE</button>	
         </div>
     </div>
+	<br>
+	<?php echo $message; ?>
+	</form>
 
 <?php require_once 'footer.php';?>

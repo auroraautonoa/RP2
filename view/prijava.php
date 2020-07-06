@@ -1,5 +1,6 @@
 <?php require_once 'header.php'; ?>
 
+	<form action="index.php?rt=login/try_login" method="post">
     <div class="div-main" >
         <div class="div-table">
         <table>
@@ -15,5 +16,6 @@
     <button class="button" id="btnPrijava" type="submit">PRIJAVI SE</button>	
         </div>
     </div>
-
+	</form>
+	<?php echo $message ?>
 <?php require_once 'footer.php';?>
