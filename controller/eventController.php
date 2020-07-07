@@ -44,5 +44,11 @@ class EventController{
 		require_once __DIR__ . '/../view/show_events.php';
 	}
 
+	public function search(){
+		$ls = new EventService;
+		$eventList = $ls->getAllEventsBySearch($_POST['search']);
+		require_once __DIR__ . '/../view/show_searched_events.php';
+	}
+
 }
 ?>
