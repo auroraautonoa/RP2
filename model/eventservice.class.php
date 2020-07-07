@@ -119,6 +119,19 @@ class EventService{
 		$st->bindParam(1,$value);
 		$st->bindParam(2,$email, PDO::PARAM_STR);
             	$st->execute();
-	}
+    }
+
+    public function getAllEventsBySearch($searched){
+	$events = [];
+	$db = DB::getConnection();
+	$st = $db->prepare( 'SELECT * FROM events WHERE title LIKE '%{$searched}%' );
+	$st->execute();
+
+	while ($row = $st->fetch())
+            $events[] = new Event ($row['id'], $row['autor'], $row['dolazi'], $row['zanima'], $row['mjesto'], $row['kategorija'], $row['vrijeme_pocetak'], $row['vrijeme_kraj'], $row['datum_pocetak'], $row['datum_kraj'], $row['title'], $row['opis']);
+	
+	return $events;
+
+    }
 
 }
