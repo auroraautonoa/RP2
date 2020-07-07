@@ -2,9 +2,10 @@
 	<html>
 	<head>
 		<meta name="viewport" content="width=device-width, initial-scale=1" charset="utf-8">
-<style>
-/* Popup container - can be anything you want */
-.popup {
+	</head>
+	<style>
+	  /* Popup container - can be anything you want */
+	  .popup {
   position: relative;
   display: inline-block;
   cursor: pointer;
@@ -15,7 +16,7 @@
 }
 
 /* The actual popup */
-.popup .popuptext {
+  .popup .popuptext {
   visibility: hidden;
   width: 160px;
   background-color: #555;
@@ -31,7 +32,7 @@
 }
 
 /* Popup arrow */
-.popup .popuptext::after {
+  .popup .popuptext::after {
   content: "";
   position: absolute;
   top: 100%;
@@ -43,24 +44,24 @@
 }
 
 /* Toggle this class - hide and show the popup */
-.popup .show {
+  .popup .show {
   visibility: visible;
   -webkit-animation: fadeIn 1s;
   animation: fadeIn 1s;
 }
 
 /* Add animation (fade in the popup) */
-@-webkit-keyframes fadeIn {
+  @-webkit-keyframes fadeIn {
   from {opacity: 0;} 
   to {opacity: 1;}
 }
 
-@keyframes fadeIn {
+  @keyframes fadeIn {
   from {opacity: 0;}
   to {opacity:1 ;}
 }
 
-.sidebar {
+  .sidebar {
   height: 100%;
   width: 0;
   position: fixed;
@@ -73,7 +74,7 @@
   padding-top: 60px;
 }
 
-.sidebar a {
+  .sidebar a {
   padding: 8px 8px 8px 32px;
   text-decoration: none;
   font-size: 25px;
@@ -82,11 +83,11 @@
   transition: 0.3s;
 }
 
-.sidebar a:hover {
+  .sidebar a:hover {
   color: #f1f1f1;
 }
 
-.sidebar .closebtn {
+  .sidebar .closebtn {
   position: absolute;
   top: 0;
   right: 25px;
@@ -94,7 +95,7 @@
   margin-left: 50px;
 }
 
-.openbtn {
+  .openbtn {
   font-size: 20px;
   cursor: pointer;
   background-color: #111;
@@ -103,21 +104,18 @@
   border: none;
 }
 
-.openbtn:hover {
+  .openbtn:hover {
   background-color: #444;
 }
 
-#main {
+  #main {
   transition: margin-left .5s;
   padding: 16px;
 }
-
-</style>
-</head>
+	</style>
 		<title>Croatia Event Calendar</title>
-        <link rel="stylesheet" type="text/css" href="../css/style.css" />
+        <link rel="stylesheet" type="text/css" href="css/style.css" />
         <script src='https://kit.fontawesome.com/a076d05399.js'></script>
-        <script src="sidebar.js"></script>
         
 		<ul>
 		<div id="mySidebar" class="sidebar">
