@@ -15,13 +15,28 @@
         <th>Event</th>
     </tr>
 	<?php
+		$i=0;
 		foreach( $eventList as $event ){
         		echo '<tr>' .
-            		'<td><a href="index.php?rt=event/'.$event->name.'">'.$event->naslov.'</a></td>' .
-             		'</tr>'; 
+            		'<td class="popup" onmouseenter="obradi('.$i.')" onmouseleave="obradi('.$i.')" >'.$event->naslov.'<span class="popuptext" id="'.$i.'" >'.$event->opis.'</span></td>' .
+             		'</tr>';
+			$i++;
 		}  
 	?>
-        
 	</table>
+
 	
 <?php require_once 'footer.php';?>
+
+<script>
+
+$(document).ready(function(){
+
+});
+
+function obradi(x){
+	var popup = document.getElementById(x);
+  	popup.classList.toggle("show");
+}
+
+</script>
