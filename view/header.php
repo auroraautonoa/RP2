@@ -68,7 +68,7 @@
   z-index: 1;
   top: 0;
   left: 0;
-  background-color: #111;
+  background-color: #006994;
   overflow-x: hidden;
   transition: 0.5s;
   padding-top: 60px;
@@ -78,13 +78,26 @@
   padding: 8px 8px 8px 32px;
   text-decoration: none;
   font-size: 25px;
-  color: #818181;
+  color: white;
+  display: block;
+  transition: 0.3s;
+}
+
+  .sidebar li {
+  padding: 8px 8px 8px 32px;
+  text-decoration: none;
+  font-size: 25px;
+  color: white;
   display: block;
   transition: 0.3s;
 }
 
   .sidebar a:hover {
-  color: #f1f1f1;
+  color: #808080;
+}
+
+  .sidebar li:hover {
+  color: #808080;
 }
 
   .sidebar .closebtn {
@@ -98,7 +111,7 @@
   .openbtn {
   font-size: 20px;
   cursor: pointer;
-  background-color: #111;
+  background-color: #006994;
   color: white;
   padding: 10px 15px;
   border: none;
@@ -106,11 +119,11 @@
 
   .openbtn:hover {
   background-color: #444;
-}
+  }
 
   #main {
+  float: left;
   transition: margin-left .5s;
-  padding: 16px;
 }
 	</style>
 		<title>Croatia Event Calendar</title>
@@ -119,37 +132,29 @@
         
 		<ul>
 		<div id="mySidebar" class="sidebar">
- 	 <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&#10005</a>
- 	 <a href="#">About</a>
- 	 <a href="#">Services</a>
- 	 <a href="#">Clients</a>
- 	 <a href="#">Contact</a>
-		</div>
-            <div id="main">
-  		<button class="openbtn" onclick="openNav()">&#9776 Open Sidebar</button>  
-	    </div>
-	    <?php 
-	    	echo '<form action="index.php?rt=event/show_events" method="post">';
-            	echo '<li><button type="submit">EVENT CALENDAR</button></li></form>';
-		
-	    ?>
-            
+      <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&#10005</a>
+      <a href = "https://rp2.studenti.math.hr/~mamisla/event_management/">Početna</a>
+      <form id = "se" action="index.php?rt=event/show_events" method="post">
+      <a href="#" onclick="document.getElementById('se').submit();">Event kalendar</a></form>
+    </div>
+      <div id="main">
+  		  <button class="openbtn" onclick="openNav()">&#9776</button>  
+      </div>
             <?php if( isset( $_SESSION['username'] ) ){
-		    echo '<form action="index.php?rt=event/logout" method="post">';
-                    echo '<li style="float:right"><button type="submit">Log out</button></li></form>'; 
-                    echo '<li style="float:right"><i class="fa fa-user-circle" style="font-size:30px; margin-top:10px;"></i></li>';
+		                echo '<form action="index.php?rt=event/logout" method="post">';
+                    echo '<li style="float:right"><button class = "openbtn" style="padding: 12px 15px" type="submit">Log out</button></li></form>'; 
+                    echo '<li style="float:right"><i class="fa fa-user-circle" style="font-size:30px; margin-top: 10px; margin-right: 5px;"></i></li>';
                   }
                   else
                   {
-		    echo '<form action="index.php?rt=login/login" method="post">';
-		    echo '<button style="float:right" type="submit">Prijava</button></form>';
-                    //echo '<li style="float:right"><a href="prijava.php">Prijava</a></li>';
-                    //echo '<li style="float:right"><a href="registracija.php">Registracija</a></li>';
-		    echo '<form action="index.php?rt=login/register" method="post">';
-		    echo '<button style="float:right" type="submit">Registracija</button></form>';
-                    echo '<li style="float:right"><i class="fa fa-user-circle" style="font-size:30px; margin-top:10px;"></i></li>';
+                    echo '<form action="index.php?rt=login/login" method="post">';
+                    echo '<button class = "openbtn" style="float:right; padding: 12px 15px;" type="submit">Prijava</button></form>';
+                                //echo '<li style="float:right"><a href="prijava.php">Prijava</a></li>';
+                                //echo '<li style="float:right"><a href="registracija.php">Registracija</a></li>';
+                    echo '<form action="index.php?rt=login/register" method="post">';
+                    echo '<button class = "openbtn" style="float:right; padding: 12px 15px;" type="submit">Registracija</button></form>';
+                    echo '<li style="float:right"><i class="fa fa-user-circle" style="font-size:30px; margin-top: 10px; margin-right: 5px;"></i></li>';
                   }
-            
             ?>
         </ul>
 	</head>
