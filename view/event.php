@@ -78,8 +78,7 @@ if (isset($_SESSION['username'])){
 			key: "271f359aee6a4ac0af9a636dd08c6ba1",
 			city: '<?php echo $event->grad;?>',
 			days: daysnum,
-			country: 'Croatia',
-			lang: 'hr'
+			country: 'Croatia'
 		},
 		type:"GET",
 		dataType: "json",
@@ -87,12 +86,12 @@ if (isset($_SESSION['username'])){
 			
 			for (var i = 0; i < daysnum; i++){
 				$('body').append("Prognoza za: ", data.data[i]['datetime'], ":<br>");
-				$('body').append("Najviša temperatura:", data.data[i]['max_temp'], "<br>");
-				$('body').append("Najniža temperatura:", data.data[i]['low_temp'], "<br>");
-				$('body').append("Prosječna temperatura:", data.data[i]['temp'], "<br>");
-				$('body').append("Smjer vjetra:", data.data[i]['wind_cdir_full'], "<br>");
-				$('body').append("Brzina vjetra:", data.data[i]['wind_spd'], " m/s<br>");
-				$('body').append("Opis vremena:", data.data[i]['weather']['description'], "<br>");
+				$('body').append("<span style='padding-left:2em'>Najviša temperatura: ", data.data[i]['max_temp'], "</span><br>");
+				$('body').append("<span style='padding-left:2em'>Najniža temperatura: ", data.data[i]['low_temp'], "</span><br>");
+				$('body').append("<span style='padding-left:2em'>Prosječna temperatura: ", data.data[i]['temp'], "</span><br>");
+				$('body').append("<span style='padding-left:2em'>Smjer vjetra: ", data.data[i]['wind_cdir_full'], "</span><br>");
+				$('body').append("<span style='padding-left:2em'>Brzina vjetra: ", data.data[i]['wind_spd'], " m/s</span><br>");
+				$('body').append("<span style='padding-left:2em'>Opis vremena: ", data.data[i]['weather']['description'], "</span><br><br>");
 			}
 		},
 		error: function(){
