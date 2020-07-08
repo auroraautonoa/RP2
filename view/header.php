@@ -136,6 +136,12 @@
       <a href = "../projekt/index.php">Početna</a>
       <form id = "se" action="index.php?rt=event/show_events" method="post">
       <a href="#" onclick="document.getElementById('se').submit();">Event kalendar</a></form>
+      <?php
+      if (isset($_SESSION['username'])){
+        echo '<form id = "ce" action="index.php?rt=event/try_add_event" method="post">';
+        echo '<a href="#" onclick="document.getElementById(\'ce\').submit();">Kreiraj događaj</a></form>';
+      }
+      ?>
     </div>
       <div id="main">
   		  <button class="openbtn" onclick="openNav()">&#9776</button>  
