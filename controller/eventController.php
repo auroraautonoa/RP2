@@ -93,5 +93,14 @@ class EventController{
 		require_once __DIR__ . '/../view/delete_event.php';
 	}
 
+	public function my_events(){
+		$message = '';
+		$ls = new EventService;
+		$id = $ls->getIdByUsername($_SESSION['username']);
+		$eventList = $ls->getEventsById($id);
+		require_once __DIR__ . '/../view/show_events.php';
+	}
+
+
 }
 ?>
