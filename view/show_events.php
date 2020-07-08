@@ -11,7 +11,7 @@
 				?>
 			</select>
 			<select name="city">
-				<option value = 'null' selected = "true">Odaberi mjesto</option>
+				<option value = 'null' selected = "true">Odaberi grad</option>
 				<?php
 					for($i = 0; $i < count($cityList); $i++){
 						echo '<option value="', $cityList[$i], '">',$cityList[$i],'</option>';
@@ -37,11 +37,11 @@
 				for ($j = 0; $j < 5; $j++){
 					if ($i * 5 + $j < count($eventList)){
 						echo '<td>';
-						echo '<a href="index.php?rt=event/'.$eventList[$i * 5+$j]->naslov.'">'.$eventList[$i * 5+$j]->naslov.'</a></td>'; 
+						echo '<a href="index.php?rt=event/'.$eventList[$i * 5+$j]->id.'">'.$eventList[$i * 5+$j]->naslov.'</a>'; 
 						echo '<br>';
 						echo $eventList[$i * 5+$j]->datum_pocetak . ' - ' . $eventList[$i+$j]->datum_kraj;
 						echo '<br>';
-						echo $eventList[$i * 5+$j]->mjesto;
+						echo $eventList[$i * 5+$j]->grad;
 						echo '<br>';
 						echo '</td>';
 					}

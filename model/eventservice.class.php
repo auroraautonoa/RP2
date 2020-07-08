@@ -36,7 +36,7 @@ class EventService{
         $comments = [];
 
         $db = DB::getConnection();
-        $st = $db->prepare('SELECT * FROM komentari WHERE id_event=:id_event ORDER BY vrijeme_objave');
+        $st = $db->prepare('SELECT * FROM komentari WHERE id_event=:id_event ORDER BY vrijeme_objave ASC');
         $st->execute(['id_event' => $id_event]);
 
         while ($row = $st->fetch())
@@ -53,6 +53,18 @@ class EventService{
         $row = $st->fetch();
 
         return $row['title'];
+    }
+
+    public function getEventById($id_event){
+        $db = DB::getConnection();
+		$st = $db->prepare('SELECT * FROM events WHERE id=:id_event');
+        $st->execute(['id_event' => $id_event]);
+
+        $row = $st->fetch();
+
+        $event = new Event ($row['id'], $row['id_user'], $row['dolazi'], $row['mjesto'], $row['grad'], $row['kategorija'], $row['vrijeme_pocetak'], $row['vrijeme_kraj'], $row['datum_pocetak'], $row['datum_kraj'], $row['title'], $row['opis']);
+
+        return $event;
     }
 
     public function sendComment($id_user, $id_event, $comment, $zvjezdice){
@@ -158,11 +170,11 @@ class EventService{
     public function getAllCities(){
         $cities = [];
         $db = DB::getConnection();
-        $st = $db->prepare( 'SELECT DISTINCT mjesto FROM events' );
+        $st = $db->prepare( 'SELECT DISTINCT grad FROM events' );
         $st->execute();
     
         while ($row = $st->fetch()){
-            $cities[] = $row['mjesto'];
+            $cities[] = $row['grad'];
         }
 
         return $cities;

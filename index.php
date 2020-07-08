@@ -51,7 +51,7 @@ $con = new $controllerName();
 if( $controller == 'event'){
 	$eventList = $ls->getAllEvents();
 	foreach( $eventList as $event){
-		if( $event->naslov == $action ){
+		if( $event->id == $action ){
 			$con->event($event->id);
 			exit(0);
 		}
