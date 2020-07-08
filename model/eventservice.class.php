@@ -107,7 +107,7 @@ class EventService{
         
         $row = $st->fetch();
 
-        $user = new User($row['id'], $row['name'], $row['surname'], $row['username'], $row['email'], $row['password'], $row['registered_sequence'], $row['registered']);
+        $user = new User($row['id'], $row['name'], $row['surname'], $row['username'], $row['email'], $row['password'], $row['registered_sequence'], $row['registered'], $row['admin']);
 
         return $user;
     }

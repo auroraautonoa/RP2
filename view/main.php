@@ -1,12 +1,15 @@
 <?php require_once 'header.php'; ?>
-    
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.js"></script>
     <div class="div-image" id="div-image">
-        <div class="div-text">
+        <div class="div-text" id="div">
             <h1 style="font-size:50px">CROATIA EVENT CALENDAR</h1>
             <form action="index.php?rt=event/show_events" method="post">
-                <input type="text" id="search" name="search" onkeyup="show_results()" placeholder="Search..">
-	        </form>
+                <input type="text" id="search" name="search" onkeyup="show_results()" placeholder="Search.." autocomplete="off">
+		<ul id="myUL">
+		
+		</ul>
+	    </form>
 
             <!-- ode bi tribala ici tablica s prikazom svih evenata i ono sortiranje -->
             <!-- za sortiranje po gradu i temi mozemo ucitavat iz ovog txtboxa iznad, a za vrijeme mozda oni kalendar sta iskoci -->
@@ -30,7 +33,12 @@ function show_results(){
 			type: "GET",
 			dataType: "json",
 			success: function(data){
-				console.log(data.show_results);		
+				$('#myUL').html('');
+				for(i=0; i<data.show_results.length; i++){
+					console.log(data.show_results[i]);
+					$('#myUL').append('<li>'+data.show_results[i]+'</li><br>');
+				}
+		
 			},
 			error: function(xhr, status, error) {
  				alert(xhr.responseText);
