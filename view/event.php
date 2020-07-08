@@ -69,4 +69,36 @@ if (isset($_SESSION['username'])){
 }
 ?>
 
+<script>
+	var daysnum = 3;
+	$.ajax(
+	{
+		url:"https://api.weatherbit.io/v2.0/forecast/daily",
+		data:{
+			key: "271f359aee6a4ac0af9a636dd08c6ba1",
+			city: '<?php echo $event->grad;?>',
+			days: daysnum,
+			country: 'Croatia',
+			lang: 'hr'
+		},
+		type:"GET",
+		dataType: "json",
+		success: function(data){
+			
+			for (var i = 0; i < daysnum; i++){
+				$('body').append("Prognoza za: ", data.data[i]['datetime'], ":<br>");
+				$('body').append("Najviša temperatura:", data.data[i]['max_temp'], "<br>");
+				$('body').append("Najniža temperatura:", data.data[i]['low_temp'], "<br>");
+				$('body').append("Prosječna temperatura:", data.data[i]['temp'], "<br>");
+				$('body').append("Smjer vjetra:", data.data[i]['wind_cdir_full'], "<br>");
+				$('body').append("Brzina vjetra:", data.data[i]['wind_spd'], " m/s<br>");
+				$('body').append("Opis vremena:", data.data[i]['weather']['description'], "<br>");
+			}
+		},
+		error: function(){
+			console.log('Greska u Ajaxu!');
+        }
+	});
+</script>
+
 <?php require_once 'footer.php';?>
