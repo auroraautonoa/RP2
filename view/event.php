@@ -1,7 +1,7 @@
 <?php require_once 'header.php'; ?>
 
 <div id = "event details">
-	<h1><?php echo $event->id;?></h1>
+	<h1><?php echo $event->naslov;?></h1>
 	Mjesto održavanja: <?php if ($event->mjesto != '') echo $event->mjesto . ', '; echo $event->grad?>
 	<br>
 	Početak: <?php echo $event->datum_pocetak . ' u ' . $event->vrijeme_pocetak;?>
@@ -22,7 +22,7 @@
 
 
     </tr>
-<form action="<?php echo 'index.php?rt=event/'.$title ?>" method="post">
+<form action="<?php echo 'index.php?rt=event/'.$id ?>" method="post">
 <?php
 	$i=0;
     foreach( $commentList as $comment ){
