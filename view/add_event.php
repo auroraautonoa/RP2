@@ -21,6 +21,10 @@
 			<td><input type="text" name="mjesto" /></td>
 		</tr>
 		<tr>
+			<td> Grad održavanja: </td>
+			<td><input type="text" name="grad" /></td>
+		</tr>
+		<tr>
 			<td> Datum početka događaja: </td>
 			<td><input type="date" name="datum_pocetak" /></td>
 		</tr>
