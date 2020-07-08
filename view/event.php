@@ -22,7 +22,6 @@
 
 
     </tr>
-<form action="<?php echo 'index.php?rt=event/'.$id ?>" method="post">
 <?php
 	$i=0;
     foreach( $commentList as $comment ){
