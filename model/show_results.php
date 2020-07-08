@@ -19,7 +19,7 @@ $ls = new EventService;
 $temp = $ls->getAllEventsBySearch($_GET['send']);
 
 foreach( $temp as $event ){
-	array_push($message['show_results'], $event->mjesto);
+	array_push($message['show_results'], $event->naslov);
 }
 
 sendJSONandEXIT($message);

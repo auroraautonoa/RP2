@@ -110,5 +110,15 @@ class EventController{
 		require_once __DIR__ . '/../view/show_events.php';
 	}
 
+	public function o_nama(){
+		$message = '';
+		require_once __DIR__ . '/../view/o_nama.php';
+	}
+
+	public function uvjeti(){
+		$message = '';
+		require_once __DIR__ . '/../view/uvjeti.php';
+	}
+
 }
 ?>

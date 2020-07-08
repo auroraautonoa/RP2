@@ -1,20 +1,29 @@
 <?php require_once 'header.php'; ?>
 
+    <style>
+	ul.x{
+		position: absolute;
+		top:110%;
+
+	}
+    </style>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.js"></script>
     <div class="div-image" id="div-image">
         <div class="div-text" id="div">
             <h1 style="font-size:50px">CROATIA EVENT CALENDAR</h1>
             <form action="index.php?rt=event/show_events" method="post">
                 <input type="text" id="search" name="search" onkeyup="show_results()" placeholder="Search.." autocomplete="off">
-		<ul id="myUL">
-		
-		</ul>
 	    </form>
 
             <!-- ode bi tribala ici tablica s prikazom svih evenata i ono sortiranje -->
             <!-- za sortiranje po gradu i temi mozemo ucitavat iz ovog txtboxa iznad, a za vrijeme mozda oni kalendar sta iskoci -->
 
+	<ul class="x" id="myUL">
+		
+	</ul>
+
         </div>
+	
     </div>
 	<?php echo $message ?>
 <?php require_once 'footer.php';?>
