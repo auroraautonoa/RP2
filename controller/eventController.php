@@ -11,7 +11,7 @@ class EventController{
 	}
 
 	public function event($event_id){
-		$ls = new EventService;
+	    $ls = new EventService;
 	    $title = $ls->getEventTitle($event_id);
 		$userListTemp = $ls->getAllUsers();
 		$commentList = $ls->getAllComments($event_id);

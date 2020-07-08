@@ -14,7 +14,7 @@ class EventService{
         $st->execute();
 
         while ($row = $st->fetch())
-            $events[] = new Event ($row['id'], $row['autor'], $row['dolazi'], $row['zanima'], $row['mjesto'], $row['kategorija'], $row['vrijeme_pocetak'], $row['vrijeme_kraj'], $row['datum_pocetak'], $row['datum_kraj'], $row['title'], $row['opis']);
+            $events[] = new Event ($row['id'], $row['id_user'], $row['dolazi'], $row['mjesto'], $row['kategorija'], $row['vrijeme_pocetak'], $row['vrijeme_kraj'], $row['datum_pocetak'], $row['datum_kraj'], $row['title'], $row['opis']);
     
         return $events;
     }
@@ -26,7 +26,7 @@ class EventService{
         $st = $db->prepare('SELECT * FROM users');
         $st->execute();
         while( $row = $st->fetch() ){
-            $users[] = new User($row['id'], $row['name'], $row['surname'], $row['username'], $row['email'], $row['password'], $row['registered_sequence'], $row['registered']);
+            $users[] = new User($row['id'], $row['name'], $row['surname'], $row['username'], $row['email'], $row['password'], $row['registered_sequence'], $row['registered'], $row['admin']);
 	}
         
         return $users;
@@ -128,7 +128,7 @@ class EventService{
         $st->execute();
 
         while ($row = $st->fetch())
-            $events[] = new Event ($row['id'], $row['autor'], $row['dolazi'], $row['zanima'], $row['mjesto'], $row['kategorija'], $row['vrijeme_pocetak'], $row['vrijeme_kraj'], $row['datum_pocetak'], $row['datum_kraj'], $row['title'], $row['opis']);
+            $events[] = new Event ($row['id'], $row['id_user'], $row['dolazi'], $row['mjesto'], $row['kategorija'], $row['vrijeme_pocetak'], $row['vrijeme_kraj'], $row['datum_pocetak'], $row['datum_kraj'], $row['title'], $row['opis']);
         return $events;
     }
     
@@ -175,6 +175,24 @@ class EventService{
         if ($category != 'null'){
             for ($i = 0; $i < count($eventList); $i++){
                 if ($eventList[$i]->kategorija != $category){
+                    array_splice($eventList, $i, 1);
+                    $i--;
+                }
+            }
+        }
+
+	if ($city != 'null'){
+            for ($i = 0; $i < count($eventList); $i++){
+                if ($eventList[$i]->mjesto != $city){
+                    array_splice($eventList, $i, 1);
+                    $i--;
+                }
+            }
+        }
+
+	if ($date != 'null'){
+            for ($i = 0; $i < count($eventList); $i++){
+                if ($eventList[$i]->datum_pocetak != $date){
                     array_splice($eventList, $i, 1);
                     $i--;
                 }

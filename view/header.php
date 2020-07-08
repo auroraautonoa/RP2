@@ -133,7 +133,7 @@
 		<ul>
 		<div id="mySidebar" class="sidebar">
       <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&#10005</a>
-      <a href = "https://rp2.studenti.math.hr/~mamisla/event_management/">Početna</a>
+      <a href = "../projekt/index.php">Početna</a>
       <form id = "se" action="index.php?rt=event/show_events" method="post">
       <a href="#" onclick="document.getElementById('se').submit();">Event kalendar</a></form>
     </div>
