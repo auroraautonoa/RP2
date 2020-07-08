@@ -12,6 +12,9 @@ class EventController{
 
 	public function event($event_id){
 	    $ls = new EventService;
+		if( isset($_POST['comment'] ) ){
+			$ls->sendComment( $ls->getIdByUsername($_SESSION['username']), $event_id, $_POST['comment'], $_POST['ocjena']);
+		}
 	    $title = $ls->getEventTitle($event_id);
 		$userListTemp = $ls->getAllUsers();
 		$commentList = $ls->getAllComments($event_id);
@@ -24,9 +27,7 @@ class EventController{
 			}
 		}
 
-		if( isset($_POST['message'] ) ){
-			$ls->sendComment( getIdByUsername($_SESSION['username']), $event_id, $_POST['message']);
-		}
+		$event = $ls->getEventById($event_id);
 
         require_once __DIR__ . '/../view/event.php';
     }
@@ -70,7 +71,7 @@ class EventController{
 	public function add_event(){
 		$message = '';
 		$ls = new EventService;
-		$ls->insertEvent($ls->getIdByUsername($_SESSION['username']), 0, $_POST['mjesto'],
+		$ls->insertEvent($ls->getIdByUsername($_SESSION['username']), 0, $_POST['mjesto'], $_POST['grad'],
 						$_POST['kategorija'], $_POST['vrijeme_pocetak'], $_POST['vrijeme_kraj'],
 						$_POST['datum_pocetak'], $_POST['datum_kraj'], $_POST['naslov'], $_POST['opis']);
 		require_once __DIR__ . '/../view/main.php';	

@@ -1,14 +1,15 @@
 <?php
     class Event{
-        protected $id, $id_user, $dolazi, $mjesto, $kategorija, $vrijeme_pocetak, 
+        protected $id, $id_user, $dolazi, $mjesto, $grad, $kategorija, $vrijeme_pocetak, 
                     $vrijeme_kraj, $datum_pocetak, $datum_kraj, $naslov, $opis;
 
-        public function __construct ($id, $id_user, $dolazi, $mjesto, $kategorija, 
+        public function __construct ($id, $id_user, $dolazi, $mjesto, $grad, $kategorija, 
                 $vrijeme_pocetak, $vrijeme_kraj, $datum_pocetak, $datum_kraj, $naslov, $opis){
             $this->id = $id;
             $this->id_user = $id_user;
             $this->dolazi = $dolazi;
             $this->mjesto = $mjesto;
+            $this->grad = $grad;
             $this->kategorija = $kategorija;
             $this->vrijeme_pocetak = $vrijeme_pocetak;
             $this->vrijeme_kraj = $vrijeme_kraj;

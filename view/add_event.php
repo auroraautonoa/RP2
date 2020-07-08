@@ -14,7 +14,7 @@
 		</tr>
 		<tr>
 			<td> Opis: </td>
-			<td> <textarea name="opis" rows = "10" cols = "50">Ovdje napišite kratki opis...</textarea> </td>
+			<td> <textarea name="opis" rows = "10" cols = "50" placeholder="Ovdje napišite kratki opis..."></textarea> </td>
 		</tr>
 		<tr>
 			<td> Mjesto održavanja: </td>
