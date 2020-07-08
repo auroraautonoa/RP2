@@ -4,6 +4,7 @@ require __DIR__ . '/../app/database/db.class.php';
 require __DIR__ . '/user.class.php';
 require __DIR__ . '/event.class.php';
 require __DIR__ . '/comment.class.php';
+require __DIR__ . '/dolazi.class.php';
 
 class EventService{
     public function getAllEvents(){
@@ -247,12 +248,29 @@ class EventService{
 
    public function getEventsById($id){
 	$events = [];
+	$created_events_ids = [];
+	$dolazi = [];
 	$db = DB::getConnection();
 	$st = $db->prepare( 'SELECT * FROM events WHERE id_user=:id' );
 	$st->execute(array('id' => $id));
-	while ($row = $st->fetch())
-            $events[] = new Event ($row['id'], $row['id_user'], $row['dolazi'], $row['mjesto'], $row['kategorija'], $row['vrijeme_pocetak'], $row['vrijeme_kraj'], $row['datum_pocetak'], $row['datum_kraj'], $row['title'], $row['opis']);
+	while ($row = $st->fetch()){
+            $events[] = new Event ($row['id'], $row['id_user'], $row['dolazi'], $row['mjesto'], $row['grad'], $row['kategorija'], $row['vrijeme_pocetak'], $row['vrijeme_kraj'], $row['datum_pocetak'], $row['datum_kraj'], $row['title'], $row['opis']);
+	    array_push($created_events_ids, $row['id']);
+	}
 
+	$st = $db->prepare( 'SELECT * FROM dolazi' );
+	$st->execute();
+	while ($row = $st->fetch())
+            $dolazi[] = new Dolazi ($row['id_event'], $row['id_user'] );
+
+	foreach( $dolazi as $dolaz ){
+		if( $dolaz->id_user == $id && !in_array($dolaz->id_event, $created_events_ids) ){
+			$st = $db->prepare( 'SELECT * FROM events WHERE id=:id' );
+			$st->execute(array('id' => $dolaz->id_event));
+			$row = $st->fetch();
+			$events[] = new Event ($row['id'], $row['id_user'], $row['dolazi'], $row['mjesto'],  $row['grad'], $row['kategorija'], $row['vrijeme_pocetak'], $row['vrijeme_kraj'], $row['datum_pocetak'], $row['datum_kraj'], $row['title'], $row['opis']);
+		}
+	}
 	return $events;
 
 	
