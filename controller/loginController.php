@@ -20,6 +20,10 @@ class LoginController{
 				if($user->registered){
 					$_SESSION['username'] =  $_POST['txtUsername'];
 					$message = 'Dobrodosli '.$user->username;
+					$is_admin = $ls->checkAdminshipByUsername($_POST['txtUsername']);
+					if( $is_admin == 1 ){
+						$_SESSION['admin'] = true;
+					}
 					require_once __DIR__ . '/../view/main.php';
 					$passed = true;
 				}

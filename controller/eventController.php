@@ -11,10 +11,7 @@ class EventController{
 	}
 
 	public function event($event_id){
-		$ls = new EventService;
-		if( isset($_POST['comment'] ) ){
-			$ls->sendComment( $ls->getIdByUsername($_SESSION['username']), $event_id, $_POST['comment'], $_POST['ocjena']);
-		}
+	    $ls = new EventService;
 	    $title = $ls->getEventTitle($event_id);
 		$userListTemp = $ls->getAllUsers();
 		$commentList = $ls->getAllComments($event_id);
@@ -26,9 +23,10 @@ class EventController{
 				}
 			}
 		}
-		$event = $ls->getEventById($event_id);
 
-
+		if( isset($_POST['message'] ) ){
+			$ls->sendComment( getIdByUsername($_SESSION['username']), $event_id, $_POST['message']);
+		}
 
         require_once __DIR__ . '/../view/event.php';
     }
@@ -72,10 +70,27 @@ class EventController{
 	public function add_event(){
 		$message = '';
 		$ls = new EventService;
-		$ls->insertEvent($ls->getIdByUsername($_SESSION['username']), 0, $_POST['mjesto'], $_POST['grad'], 
+		$ls->insertEvent($ls->getIdByUsername($_SESSION['username']), 0, $_POST['mjesto'],
 						$_POST['kategorija'], $_POST['vrijeme_pocetak'], $_POST['vrijeme_kraj'],
 						$_POST['datum_pocetak'], $_POST['datum_kraj'], $_POST['naslov'], $_POST['opis']);
 		require_once __DIR__ . '/../view/main.php';	
 	}
+	
+	public function try_delete_event(){
+		$message = '';
+		$ls = new EventService;
+		$eventList = $ls->getAllEvents();
+		require_once __DIR__ . '/../view/delete_event.php';
+	}
+
+	public function delete_event(){
+		$message = '';
+		$ls = new EventService;
+		$ls->deleteEvent($_POST['delete']);
+		$eventList = $ls->getAllEvents();
+		$message = "Uspjesno ste izbrisali event!";
+		require_once __DIR__ . '/../view/delete_event.php';
+	}
+
 }
 ?>
