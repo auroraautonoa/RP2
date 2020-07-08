@@ -229,8 +229,19 @@ class EventService{
 	$st = $db->prepare( 'DELETE FROM events WHERE id=:id_event' );
 	$st->execute(array('id_event' => $id_event));
 	$st = $db->prepare( 'DELETE FROM komentari WHERE id_event=:id_event' );
-	$st->execute(array('id_event' => $id_event));
-	
+	$st->execute(array('id_event' => $id_event));	
     }
 
+   public function getEventsById($id){
+	$events = [];
+	$db = DB::getConnection();
+	$st = $db->prepare( 'SELECT * FROM events WHERE id_user=:id' );
+	$st->execute(array('id' => $id));
+	while ($row = $st->fetch())
+            $events[] = new Event ($row['id'], $row['id_user'], $row['dolazi'], $row['mjesto'], $row['kategorija'], $row['vrijeme_pocetak'], $row['vrijeme_kraj'], $row['datum_pocetak'], $row['datum_kraj'], $row['title'], $row['opis']);
+
+	return $events;
+
+	
+   }
 }
