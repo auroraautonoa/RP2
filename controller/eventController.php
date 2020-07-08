@@ -18,9 +18,11 @@ class EventController{
 		if( isset($_POST['dolazim']) ){
 			$ls->userIsComing( $event_id, $ls->getIdByUsername($_SESSION['username']) );
 		}
-	        $title = $ls->getEventTitle($event_id);
-		$current_user_id = $ls->getIdByUsername($_SESSION['username']);
-		$coming = $ls->checkIfComing($event_id, $current_user_id);
+			$title = $ls->getEventTitle($event_id);
+		if (isset($_SESSION['username'])){
+			$current_user_id = $ls->getIdByUsername($_SESSION['username']);
+			$coming = $ls->checkIfComing($event_id, $current_user_id);
+		}
 		$userListTemp = $ls->getAllUsers();
 		$commentList = $ls->getAllComments($event_id);
 		$userList = array();

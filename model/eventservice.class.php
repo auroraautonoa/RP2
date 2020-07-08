@@ -138,11 +138,11 @@ class EventService{
 
     public function final_register($email){
 		$value=1;
-            	$db = DB::getConnection();
-            	$st = $db->prepare( 'UPDATE users SET registered=? WHERE email=?' );
+        $db = DB::getConnection();
+        $st = $db->prepare( 'UPDATE users SET registered=? WHERE email=?' );
 		$st->bindParam(1,$value);
 		$st->bindParam(2,$email, PDO::PARAM_STR);
-            	$st->execute();
+        $st->execute();
     }
 
     public function getAllEventsBySearch($searched){
@@ -246,64 +246,65 @@ class EventService{
 	$st->execute(array('id_event' => $id_event));	
     }
 
-   public function getEventsById($id){
-	$events = [];
-	$created_events_ids = [];
-	$dolazi = [];
-	$db = DB::getConnection();
-	$st = $db->prepare( 'SELECT * FROM events WHERE id_user=:id' );
-	$st->execute(array('id' => $id));
-	while ($row = $st->fetch()){
+    public function getEventsById($id){
+        $events = [];
+        $created_events_ids = [];
+        $dolazi = [];
+        $db = DB::getConnection();
+        $st = $db->prepare( 'SELECT * FROM events WHERE id_user=:id' );
+        $st->execute(array('id' => $id));
+        while ($row = $st->fetch()){
             $events[] = new Event ($row['id'], $row['id_user'], $row['dolazi'], $row['mjesto'], $row['grad'], $row['kategorija'], $row['vrijeme_pocetak'], $row['vrijeme_kraj'], $row['datum_pocetak'], $row['datum_kraj'], $row['title'], $row['opis']);
-	    array_push($created_events_ids, $row['id']);
-	}
+            array_push($created_events_ids, $row['id']);
+        }
 
-	$st = $db->prepare( 'SELECT * FROM dolazi' );
-	$st->execute();
-	while ($row = $st->fetch())
-            $dolazi[] = new Dolazi ($row['id_event'], $row['id_user'] );
+        $st = $db->prepare( 'SELECT * FROM dolazi' );
+        $st->execute();
+        while ($row = $st->fetch())
+                $dolazi[] = new Dolazi ($row['id_event'], $row['id_user'] );
 
-	foreach( $dolazi as $dolaz ){
-		if( $dolaz->id_user == $id && !in_array($dolaz->id_event, $created_events_ids) ){
-			$st = $db->prepare( 'SELECT * FROM events WHERE id=:id' );
-			$st->execute(array('id' => $dolaz->id_event));
-			$row = $st->fetch();
-			$events[] = new Event ($row['id'], $row['id_user'], $row['dolazi'], $row['mjesto'],  $row['grad'], $row['kategorija'], $row['vrijeme_pocetak'], $row['vrijeme_kraj'], $row['datum_pocetak'], $row['datum_kraj'], $row['title'], $row['opis']);
-		}
-	}
-	return $events;
-   }
+        foreach( $dolazi as $dolaz ){
+            if( $dolaz->id_user == $id && !in_array($dolaz->id_event, $created_events_ids) ){
+                $st = $db->prepare( 'SELECT * FROM events WHERE id=:id' );
+                $st->execute(array('id' => $dolaz->id_event));
+                $row = $st->fetch();
+                $events[] = new Event ($row['id'], $row['id_user'], $row['dolazi'], $row['mjesto'],  $row['grad'], $row['kategorija'], $row['vrijeme_pocetak'], $row['vrijeme_kraj'], $row['datum_pocetak'], $row['datum_kraj'], $row['title'], $row['opis']);
+            }
+        }
+        return $events;
+    }
    
-   public function checkIfComing($id_event, $id_user){
-	$coming = 0;
-	$db = DB::getConnection();
-	$st = $db->prepare( 'SELECT * FROM dolazi' );
-	$st->execute();
-	while ($row = $st->fetch())
+    public function checkIfComing($id_event, $id_user){
+        $coming = 0;
+        $db = DB::getConnection();
+        $st = $db->prepare( 'SELECT * FROM dolazi' );
+        $st->execute();
+        while ($row = $st->fetch())
             $dolazi[] = new Dolazi ($row['id_event'], $row['id_user'] );
 
-	foreach( $dolazi as $dolaz ){
-		if( $dolaz->id_user == $id_user && $dolaz->id_event == $id_event ){
-			$coming = 1;
-		}
-	}
+        foreach( $dolazi as $dolaz ){
+            if( $dolaz->id_user == $id_user && $dolaz->id_event == $id_event ){
+                $coming = 1;
+            }
+        }
 
-	return $coming;
-   }
+        return $coming;
+    }
 
-   public function userIsComing($id_event, $id_user){
-	$db = DB::getConnection();
-	$st = $db->prepare( 'INSERT INTO dolazi(id_event, id_user )
-                            VALUES (:id_event, :id_user )');
+    public function userIsComing($id_event, $id_user){
+        $db = DB::getConnection();
+        $st = $db->prepare( 'INSERT INTO dolazi(id_event, id_user )
+                                VALUES (:id_event, :id_user )');
         $st->execute(array('id_event' => $id_event, 'id_user' => $id_user ));
 
-	$st = $db->prepare( 'SELECT dolazi FROM events WHERE id=:id' );
-	$st->execute(array('id' => $id_event));
+        $st = $db->prepare( 'SELECT dolazi FROM events WHERE id=:id' );
+        $st->execute(array('id' => $id_event));
 
-	$st = $db->prepare( 'UPDATE events SET dolazi=? WHERE id=?' );
-	$st->bindParam(1,$value);
-	$st->bindParam(2,$id_event, PDO::PARAM_STR);
-        $st->execute();	
-   }
+        $row = $st->fetch();
+        $value = $row['dolazi'] + 1;
+
+        $st = $db->prepare( 'UPDATE events SET dolazi=:val WHERE id=:id' );
+        $st->execute(array('val' => $value, 'id' => $id_event));	
+    }
 
 }

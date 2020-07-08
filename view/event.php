@@ -9,9 +9,7 @@
 	Kraj: <?php echo $event->datum_kraj . ' u ' . $event->vrijeme_kraj;?>
 	<br>
 	Dolazi: <?php echo $event->dolazi ?>
-	<br><br>
-	Opis događaja: <?php echo $event->opis ?>
-	<?php if( $coming == 0 ){ 
+	<?php if (isset($_SESSION['username'])) if( $coming == 0 ){ 
 		echo '<form action="index.php?rt=event/'.$event->id.'" method="post">';
 		echo '<button type="submit" name="dolazim">Dolazim!</button></form>';
 	       }
@@ -19,6 +17,8 @@
 			echo "<br><br>Dolazim na ovaj event!";
 		}
  	?>
+	<br><br>
+	Opis događaja: <?php echo $event->opis ?>
 </div>
 
 <br>
@@ -69,6 +69,8 @@ if (isset($_SESSION['username'])){
 }
 ?>
 
+<div id="forecast"></div>
+
 <script>
 	var daysnum = 3;
 	$.ajax(
@@ -83,15 +85,15 @@ if (isset($_SESSION['username'])){
 		type:"GET",
 		dataType: "json",
 		success: function(data){
-			
+			$('#forecast').append("<br><br>");
 			for (var i = 0; i < daysnum; i++){
-				$('body').append("Prognoza za: ", data.data[i]['datetime'], ":<br>");
-				$('body').append("<span style='padding-left:2em'>Najviša temperatura: ", data.data[i]['max_temp'], "</span><br>");
-				$('body').append("<span style='padding-left:2em'>Najniža temperatura: ", data.data[i]['low_temp'], "</span><br>");
-				$('body').append("<span style='padding-left:2em'>Prosječna temperatura: ", data.data[i]['temp'], "</span><br>");
-				$('body').append("<span style='padding-left:2em'>Smjer vjetra: ", data.data[i]['wind_cdir_full'], "</span><br>");
-				$('body').append("<span style='padding-left:2em'>Brzina vjetra: ", data.data[i]['wind_spd'], " m/s</span><br>");
-				$('body').append("<span style='padding-left:2em'>Opis vremena: ", data.data[i]['weather']['description'], "</span><br><br>");
+				$('#forecast').append("Prognoza za  <?php echo $event->grad;?> ", data.data[i]['datetime'], ":<br>");
+				$('#forecast').append("<span style='padding-left:2em'>Najviša temperatura: ", data.data[i]['max_temp'], "</span><br>");
+				$('#forecast').append("<span style='padding-left:2em'>Najniža temperatura: ", data.data[i]['low_temp'], "</span><br>");
+				$('#forecast').append("<span style='padding-left:2em'>Prosječna temperatura: ", data.data[i]['temp'], "</span><br>");
+				$('#forecast').append("<span style='padding-left:2em'>Smjer vjetra: ", data.data[i]['wind_cdir_full'], "</span><br>");
+				$('#forecast').append("<span style='padding-left:2em'>Brzina vjetra: ", data.data[i]['wind_spd'], " m/s</span><br>");
+				$('#forecast').append("<span style='padding-left:2em'>Opis vremena: ", data.data[i]['weather']['description'], "</span><br><br>");
 			}
 		},
 		error: function(){
