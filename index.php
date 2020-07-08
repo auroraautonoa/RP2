@@ -48,6 +48,15 @@ if( !class_exists( $controllerName ) )
 
 $con = new $controllerName();
 
+if( $controller == 'event'){
+	$eventList = $ls->getAllEvents();
+	foreach( $eventList as $event){
+		if( $event->naslov == $action ){
+			$con->event($event->id);
+			exit(0);
+		}
+	}
+}
 $con->$action();
 
 ?>

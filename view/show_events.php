@@ -37,7 +37,7 @@
 				for ($j = 0; $j < 5; $j++){
 					if ($i * 5 + $j < count($eventList)){
 						echo '<td>';
-						echo $eventList[$i * 5+$j]->naslov;
+						echo '<a href="index.php?rt=event/'.$eventList[$i * 5+$j]->naslov.'">'.$eventList[$i * 5+$j]->naslov.'</a></td>'; 
 						echo '<br>';
 						echo $eventList[$i * 5+$j]->datum_pocetak . ' - ' . $eventList[$i+$j]->datum_kraj;
 						echo '<br>';
