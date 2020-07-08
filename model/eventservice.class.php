@@ -14,7 +14,7 @@ class EventService{
         $st->execute();
 
         while ($row = $st->fetch())
-            $events[] = new Event ($row['id'], $row['id_user'], $row['dolazi'], $row['mjesto'], $row['kategorija'], $row['vrijeme_pocetak'], $row['vrijeme_kraj'], $row['datum_pocetak'], $row['datum_kraj'], $row['title'], $row['opis']);
+            $events[] = new Event ($row['id'], $row['autor'], $row['dolazi'], $row['zanima'], $row['mjesto'], $row['kategorija'], $row['vrijeme_pocetak'], $row['vrijeme_kraj'], $row['datum_pocetak'], $row['datum_kraj'], $row['title'], $row['opis']);
     
         return $events;
     }
@@ -26,7 +26,7 @@ class EventService{
         $st = $db->prepare('SELECT * FROM users');
         $st->execute();
         while( $row = $st->fetch() ){
-            $users[] = new User($row['id'], $row['name'], $row['surname'], $row['username'], $row['email'], $row['password'], $row['registered_sequence'], $row['registered'], $row['admin']);
+            $users[] = new User($row['id'], $row['name'], $row['surname'], $row['username'], $row['email'], $row['password'], $row['registered_sequence'], $row['registered']);
 	}
         
         return $users;
@@ -47,7 +47,7 @@ class EventService{
 
     public function getEventTitle($id_event){
         $db = DB::getConnection();
-	$st = $db->prepare('SELECT * FROM events WHERE id=:id_event');
+		$st = $db->prepare('SELECT * FROM events WHERE id=:id_event');
         $st->execute(['id_event' => $id_event]);
         
         $row = $st->fetch();
@@ -102,12 +102,12 @@ class EventService{
 
     public function getUserByUsername($username){
         $db = DB::getConnection();
-	$st = $db->prepare('SELECT * FROM users WHERE username=:username');
+	    $st = $db->prepare('SELECT * FROM users WHERE username=:username');
         $st->execute(['username' => $username]);
         
         $row = $st->fetch();
 
-        $user = new User($row['id'], $row['name'], $row['surname'], $row['username'], $row['email'], $row['password'], $row['registered_sequence'], $row['registered'], $row['admin']);
+        $user = new User($row['id'], $row['name'], $row['surname'], $row['username'], $row['email'], $row['password'], $row['registered_sequence'], $row['registered']);
 
         return $user;
     }
@@ -122,62 +122,65 @@ class EventService{
     }
 
     public function getAllEventsBySearch($searched){
-	$events = [];
-	$db = DB::getConnection();
-	$st = $db->prepare( 'SELECT * FROM events WHERE title LIKE '%{$searched}%' );
-	$st->execute();
+        $events = [];
+        $db = DB::getConnection();
+        $st = $db->prepare( "SELECT * FROM events WHERE title LIKE '%{$searched}%'");
+        $st->execute();
 
-	while ($row = $st->fetch())
-            $events[] = new Event ($row['id'], $row['id_user'], $row['dolazi'], $row['mjesto'], $row['kategorija'], $row['vrijeme_pocetak'], $row['vrijeme_kraj'], $row['datum_pocetak'], $row['datum_kraj'], $row['title'], $row['opis']);
-	
-	return $events;
-
+        while ($row = $st->fetch())
+            $events[] = new Event ($row['id'], $row['autor'], $row['dolazi'], $row['zanima'], $row['mjesto'], $row['kategorija'], $row['vrijeme_pocetak'], $row['vrijeme_kraj'], $row['datum_pocetak'], $row['datum_kraj'], $row['title'], $row['opis']);
+        return $events;
     }
-
+    
     public function getAllCategories(){
-	$categories = [];
-	$db = DB::getConnection();
-	$st = $db->prepare( 'SELECT * FROM events' );
-	$st->execute();
-
-	while ($row = $st->fetch()){
-		if( !in_array($row['category'], $categories) ){
-			array_push($categories, $row['category']);
-		}
+        $categories = [];
+        $db = DB::getConnection();
+        $st = $db->prepare( 'SELECT DISTINCT kategorija FROM events' );
+        $st->execute();
+    
+        while ($row = $st->fetch()){
+            $categories[] = $row['kategorija'];
         }
-	return $categories;
+
+        return $categories;
     }
 
-     public function getAllCities(){
-	$cities = [];
-	$db = DB::getConnection();
-	$st = $db->prepare( 'SELECT * FROM events );
-	$st->execute();
-
-	while ($row = $st->fetch()){
-		if( !in_array($row['city'], $cities) ){
-			array_push($cities, $row['city']);
-		}
+    public function getAllCities(){
+        $cities = [];
+        $db = DB::getConnection();
+        $st = $db->prepare( 'SELECT DISTINCT mjesto FROM events' );
+        $st->execute();
+    
+        while ($row = $st->fetch()){
+            $cities[] = $row['mjesto'];
         }
-	return $cities;
-    }
 
+        return $cities;
+    }
+    
     public function getAllDates(){
-	$dates = [];
-	$db = DB::getConnection();
-	$st = $db->prepare( 'SELECT * FROM events );
-	$st->execute();
-
-	while ($row = $st->fetch()){
-		if( !in_array($row['date'], $dates) ){
-			array_push($dates, $row['date']);
-		}
+        $dates = [];
+        $db = DB::getConnection();
+        $st = $db->prepare( 'SELECT DISTINCT datum_pocetak FROM events' );
+        $st->execute();
+    
+        while ($row = $st->fetch()){
+            $dates[] = $row['datum_pocetak'];
         }
-	return $dates;
+
+        return $dates;
     }
 
-	if( $category != 'null' ){
-		
-	}
+    public function getFilteredEvents($category, $city, $date, $eventList){
+        if ($category != 'null'){
+            for ($i = 0; $i < count($eventList); $i++){
+                if ($eventList[$i]->kategorija != $category){
+                    array_splice($eventList, $i, 1);
+                    $i--;
+                }
+            }
+        }
 
+        return $eventList;
+    }
 }
