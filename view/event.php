@@ -7,6 +7,8 @@
 	Početak: <?php echo $event->datum_pocetak . ' u ' . $event->vrijeme_pocetak;?>
 	<br>
 	Kraj: <?php echo $event->datum_kraj . ' u ' . $event->vrijeme_kraj;?>
+	<br>
+	Dolazi: <?php echo $event->dolazi ?>
 	<br><br>
 	Opis događaja: <?php echo $event->opis ?>
 </div>
