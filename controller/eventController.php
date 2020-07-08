@@ -15,7 +15,12 @@ class EventController{
 		if( isset($_POST['comment'] ) ){
 			$ls->sendComment( $ls->getIdByUsername($_SESSION['username']), $event_id, $_POST['comment'], $_POST['ocjena']);
 		}
-	    $title = $ls->getEventTitle($event_id);
+		if( isset($_POST['dolazim']) ){
+			$ls->userIsComing( $event_id, $ls->getIdByUsername($_SESSION['username']) );
+		}
+	        $title = $ls->getEventTitle($event_id);
+		$current_user_id = $ls->getIdByUsername($_SESSION['username']);
+		$coming = $ls->checkIfComing($event_id, $current_user_id);
 		$userListTemp = $ls->getAllUsers();
 		$commentList = $ls->getAllComments($event_id);
 		$userList = array();
@@ -54,6 +59,7 @@ class EventController{
 		$categoryList = $ls->getAllCategories();
 		$cityList = $ls->getAllCities();
 		$dateList = $ls->getAllDates();
+		$message = '';
 		require_once __DIR__ . '/../view/show_events.php';
 	}
 
@@ -96,11 +102,13 @@ class EventController{
 	public function my_events(){
 		$message = '';
 		$ls = new EventService;
+		$categoryList = $ls->getAllCategories();
+		$cityList = $ls->getAllCities();
+		$dateList = $ls->getAllDates();
 		$id = $ls->getIdByUsername($_SESSION['username']);
 		$eventList = $ls->getEventsById($id);
 		require_once __DIR__ . '/../view/show_events.php';
 	}
-
 
 }
 ?>

@@ -11,6 +11,14 @@
 	Dolazi: <?php echo $event->dolazi ?>
 	<br><br>
 	Opis događaja: <?php echo $event->opis ?>
+	<?php if( $coming == 0 ){ 
+		echo '<form action="index.php?rt=event/'.$event->id.'" method="post">';
+		echo '<button type="submit" name="dolazim">Dolazim!</button></form>';
+	       }
+	      else{
+			echo "<br><br>Dolazim na ovaj event!";
+		}
+ 	?>
 </div>
 
 <br>

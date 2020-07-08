@@ -272,7 +272,38 @@ class EventService{
 		}
 	}
 	return $events;
-
-	
    }
+   
+   public function checkIfComing($id_event, $id_user){
+	$coming = 0;
+	$db = DB::getConnection();
+	$st = $db->prepare( 'SELECT * FROM dolazi' );
+	$st->execute();
+	while ($row = $st->fetch())
+            $dolazi[] = new Dolazi ($row['id_event'], $row['id_user'] );
+
+	foreach( $dolazi as $dolaz ){
+		if( $dolaz->id_user == $id_user && $dolaz->id_event == $id_event ){
+			$coming = 1;
+		}
+	}
+
+	return $coming;
+   }
+
+   public function userIsComing($id_event, $id_user){
+	$db = DB::getConnection();
+	$st = $db->prepare( 'INSERT INTO dolazi(id_event, id_user )
+                            VALUES (:id_event, :id_user )');
+        $st->execute(array('id_event' => $id_event, 'id_user' => $id_user ));
+
+	$st = $db->prepare( 'SELECT dolazi FROM events WHERE id=:id' );
+	$st->execute(array('id' => $id_event));
+
+	$st = $db->prepare( 'UPDATE events SET dolazi=? WHERE id=?' );
+	$st->bindParam(1,$value);
+	$st->bindParam(2,$id_event, PDO::PARAM_STR);
+        $st->execute();	
+   }
+
 }
