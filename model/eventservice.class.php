@@ -63,18 +63,18 @@ class EventService{
         $st->execute(array('id_user' => $id_user, 'id_event' => $id_event, 'vrijeme_objave' => $date, 'opis' => $comment, 'zvjezdice' => $zvjezdice));
     }
 
-    public function insertEvent($autor, $dolazi, $zanima, $mjesto, $kategorija, $vrijeme_pocetak, 
+    public function insertEvent($id_user, $dolazi, $mjesto, $kategorija, $vrijeme_pocetak, 
                     $vrijeme_kraj, $datum_pocetak, $datum_kraj, $naslov, $opis){
                         
         $db = DB::getConnection();
-        $st = $db->prepare( 'INSERT INTO events(autor, dolazi, zanima, mjesto, kategorija,
-                            vrijeme_pocetak, vrijeme_kraj, datum_pocetak, datum_kraj, naslov, opis)
-                            VALUES (:autor, :dolazi, :zanima, :mjesto, :kategorija,
-                            :vrijeme_pocetak, :vrijeme_kraj, :datum_pocetak, :datum_kraj, :naslov, :opis)');
-        $st->execute(array('autor' => $autor, 'dolazi' => $dolazi, 'zanima' => $zanima, 
+        $st = $db->prepare( 'INSERT INTO events(id_user, dolazi, mjesto, kategorija,
+                            vrijeme_pocetak, vrijeme_kraj, datum_pocetak, datum_kraj, title, opis)
+                            VALUES (:id_user, :dolazi, :mjesto, :kategorija,
+                            :vrijeme_pocetak, :vrijeme_kraj, :datum_pocetak, :datum_kraj, :title, :opis)');
+        $st->execute(array('id_user' => $id_user, 'dolazi' => $dolazi, 
                         'mjesto' => $mjesto, 'kategorija' => $kategorija, 'vrijeme_pocetak' => $vrijeme_pocetak,
                         'vrijeme_kraj' => $vrijeme_kraj, 'datum_pocetak' => $datum_pocetak,
-                        'datum_kraj' => $datum_kraj, 'naslov' => $naslov, 'opis' => $opis));    
+                        'datum_kraj' => $datum_kraj, 'title' => $naslov, 'opis' => $opis));    
     }
 
     public function register($name, $surname, $username, $password, $email){
@@ -107,9 +107,19 @@ class EventService{
         
         $row = $st->fetch();
 
-        $user = new User($row['id'], $row['name'], $row['surname'], $row['username'], $row['email'], $row['password'], $row['registered_sequence'], $row['registered']);
+        $user = new User($row['id'], $row['name'], $row['surname'], $row['username'], $row['email'], $row['password'], $row['registered_sequence'], $row['registered'], $row['admin']);
 
         return $user;
+    }
+
+    public function getIdByUsername($username){
+        $db = DB::getConnection();
+	    $st = $db->prepare('SELECT id FROM users WHERE username=:username');
+        $st->execute(['username' => $username]);
+
+        $row = $st->fetch();
+        
+        return $row['id'];
     }
 
     public function final_register($email){
