@@ -129,6 +129,7 @@
 		<title>Croatia Event Calendar</title>
         <link rel="stylesheet" type="text/css" href="css/style.css" />
         <script src='https://kit.fontawesome.com/a076d05399.js'></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.js"></script>
         
 		<ul>
 		<div id="mySidebar" class="sidebar">

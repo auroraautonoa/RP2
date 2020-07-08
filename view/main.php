@@ -7,7 +7,6 @@
 
 	}
     </style>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.js"></script>
     <div class="div-image" id="div-image">
         <div class="div-text" id="div">
             <h1 style="font-size:50px">CROATIA EVENT CALENDAR</h1>
