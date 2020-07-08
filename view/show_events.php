@@ -1,42 +1,55 @@
 <?php require_once 'header.php'; ?>
 
-    <div class="div-image" id="div-image">
-        <div class="div-text">
-            <h1 style="font-size:50px">CROATIA EVENT CALENDAR</h1>
-            <input type="text" placeholder="Search..">
-
-            <!-- ode bi tribala ici tablica s prikazom svih evenata i ono sortiranje -->
-            <!-- za sortiranje po gradu i temi mozemo ucitavat iz ovog txtboxa iznad, a za vrijeme mozda oni kalendar sta iskoci -->
-
-        </div>
-    </div>
-	<table>
-    <tr>
-        <th>Event</th>
-    </tr>
-	<?php
-		$i=0;
-		foreach( $eventList as $event ){
-        		echo '<tr>' .
-            		'<td class="popup" onmouseenter="obradi('.$i.')" onmouseleave="obradi('.$i.')" >'.$event->naslov.'<span class="popuptext" id="'.$i.'" >'.$event->opis.'</span></td>' .
-             		'</tr>';
-			$i++;
-		}  
-	?>
-	</table>
-
+	<div id="filter">
+		<form action="index.php?rt=event/show_events" method="post">
+			<select name="category">
+				<option value = 'null' selected = "true">Odaberi kategoriju</option>
+				<?php
+					for($i = 0; $i < count($categoryList); $i++){
+						echo '<option value="', $categoryList[$i], '">',$categoryList[$i],'</option>';
+					}
+				?>
+			</select>
+			<select name="city">
+				<option value = 'null' selected = "true">Odaberi mjesto</option>
+				<?php
+					for($i = 0; $i < count($cityList); $i++){
+						echo '<option value="', $cityList[$i], '">',$cityList[$i],'</option>';
+					}
+				?>
+			</select>
+			<select name="date">
+				<option value = 'null' selected = "true">Odaberi datum</option>
+				<?php
+					for($i = 0; $i < count($dateList); $i++){
+						echo '<option value="', $dateList[$i], '">',$dateList[$i],'</option>';
+					}
+				?>
+			</select>
+			<button type="submit">Filtriraj</button>
+		</form>
+	</div>
+	<div id="events">
+		<?php
+			echo '<table>';
+			for($i = 0; $i < count($eventList) / 5; $i++){
+				echo '<tr>';
+				for ($j = 0; $j < 5; $j++){
+					if ($i * 5 + $j < count($eventList)){
+						echo '<td>';
+						echo $eventList[$i * 5+$j]->naslov;
+						echo '<br>';
+						echo $eventList[$i * 5+$j]->datum_pocetak . ' - ' . $eventList[$i+$j]->datum_kraj;
+						echo '<br>';
+						echo $eventList[$i * 5+$j]->mjesto;
+						echo '<br>';
+						echo '</td>';
+					}
+				}
+				echo '</tr>';
+			}
+			echo '</table>';
+		?>
+	</div>
 	
 <?php require_once 'footer.php';?>
-
-<script>
-
-$(document).ready(function(){
-
-});
-
-function obradi(x){
-	var popup = document.getElementById(x);
-  	popup.classList.toggle("show");
-}
-
-</script>

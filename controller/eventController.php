@@ -6,13 +6,13 @@ require_once __DIR__ . '/../app/database/db.class.php';
 class EventController{
 	
 	public function index(){
-        	$message = '';
+        $message = '';
 		require_once __DIR__ . '/../view/main.php';
 	}
 
 	public function event($event_id){
 		$ls = new EventService;
-	    	$title = $ls->getEventTitle($event_id);
+	    $title = $ls->getEventTitle($event_id);
 		$userListTemp = $ls->getAllUsers();
 		$commentList = $ls->getAllComments($event_id);
 		$userList = array();
@@ -28,19 +28,31 @@ class EventController{
 			$ls->sendMessage( $_SESSION['username'], $event_id, $_POST['message'] );
 		}
 
-                require_once __DIR__ . '/../view/event.php';
-        }
+        require_once __DIR__ . '/../view/event.php';
+    }
 
 	public function logout(){
 		$message = 'Uspjesno ste se odjavili!';
 		session_unset();
-        	session_destroy();
+        session_destroy();
 		require_once __DIR__ . '/../view/prijava.php';
 	}
 
 	public function show_events(){
 		$ls = new EventService;
-		$eventList = $ls->getAllEvents();
+		if (isset($_POST['search'])){
+			$eventList = $ls->getAllEventsBySearch($_POST['search']);
+		}
+		else if (isset($_POST['category']) || isset($_POST['city']) || isset($_POST['date'])){
+			$eventList = $ls->getAllEvents();
+			$eventList = $ls->getFilteredEvents($_POST['category'], $_POST['city'], $_POST['date'], $eventList);
+		}
+		else{
+			$eventList = $ls->getAllEvents();
+		}
+		$categoryList = $ls->getAllCategories();
+		$cityList = $ls->getAllCities();
+		$dateList = $ls->getAllDates();
 		require_once __DIR__ . '/../view/show_events.php';
 	}
 
@@ -49,6 +61,5 @@ class EventController{
 		$eventList = $ls->getAllEventsBySearch($_POST['search']);
 		require_once __DIR__ . '/../view/show_searched_events.php';
 	}
-
 }
 ?>

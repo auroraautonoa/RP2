@@ -5,7 +5,7 @@
 	</head>
 	<style>
 	  /* Popup container - can be anything you want */
-	  .popup {
+	.popup {
   position: relative;
   display: inline-block;
   cursor: pointer;
@@ -169,5 +169,5 @@ function closeNav() {
   document.getElementById("main").style.marginLeft= "0";
 }
 </script>
-	<body>
+<body>
 	

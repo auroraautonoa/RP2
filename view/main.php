@@ -3,7 +3,7 @@
     <div class="div-image" id="div-image">
         <div class="div-text">
             <h1 style="font-size:50px">CROATIA EVENT CALENDAR</h1>
-            <form action="index.php?rt=event/search" method="post">
+            <form action="index.php?rt=event/show_events" method="post">
                 <input type="text" name="search" placeholder="Search..">
 	        </form>
 
