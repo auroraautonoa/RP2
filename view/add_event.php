@@ -2,7 +2,7 @@
 
 	<form action="index.php?rt=event/add_event" method="post">
     <div class="div-main" >
-        <div class="div-table">
+        <div class="div-table-add">
         <table>
 		<tr>
 			<td> Ime eventa: </td>
