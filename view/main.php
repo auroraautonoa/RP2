@@ -44,7 +44,7 @@ function show_results(){
 				$('#myUL').html('');
 				for(i=0; i<data.show_results.length; i++){
 					console.log(data.show_results[i]);
-					$('#myUL').append('<li>'+data.show_results[i]+'</li><br>');
+					$('#myUL').append('<li onclick="obradi('+i+')" id="'+i+'">'+data.show_results[i]+'</li><br>');
 				}
 		
 			},
@@ -52,5 +52,11 @@ function show_results(){
  				alert(xhr.responseText);
 			}
 	});
+
 }
+function obradi(x){
+	li = document.getElementById(x);
+	console.log(li);
+}
+
 </script>

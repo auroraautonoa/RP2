@@ -99,7 +99,7 @@ class EventService{
         $db = DB::getConnection();
         try{
             $st = $db->prepare('INSERT INTO users(name, surname, username, email, password, 
-                            registered_sequence, registered) VALUES (:name, :surname, :username, :email, :password, :registration_sequence, 0)');
+                            registered_sequence, registered, admin) VALUES (:name, :surname, :username, :email, :password, :registration_sequence, 0, 0)');
             $st->execute(array('name' => $name, 'surname' => $surname, 'username' => $username, 'email' => $email, 'password' => password_hash($password, PASSWORD_DEFAULT ), 'registration_sequence' => $registration_sequence ));
         }catch( PDOException $e ) { exit( 'PDO Error: ' . $e->getMessage() ); }
         $recipient = $email;
