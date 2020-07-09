@@ -121,6 +121,60 @@
   background-color: #444;
   }
 
+  .table{
+    width: 600px;
+    border-radius: 5px;
+    background-color: #e9e0e0;
+    border-collapse: separate;
+
+  }
+  table td, th {
+  padding: 5px 10px;
+
+}
+
+table tr:nth-child(even) {
+  background: #808080;
+}
+
+  .div-navigation-bar {
+    font-family: "Palatino Linotype", "Book Antiqua", serif;
+    height: 50px;
+    background-color: #444;
+  }
+
+  .dropdown {
+    color: black;
+    padding: 9px 20px;
+    border-radius: 10px;
+    position:relative;
+    background-color: #808080;
+
+  }
+
+  .btnF{
+    font-family: "Palatino Linotype", "Book Antiqua", serif;
+    background-color: #808080;
+    color: rgb(223, 213, 213);
+    padding: 10px 50px;
+    margin: 8px 0;
+    border-radius: 20px;
+    border: none;
+    cursor: pointer;
+    color:black;
+    opacity: 0.9;
+  }
+  .all-events {
+    font-family: "Palatino Linotype", "Book Antiqua", serif;
+    font-size: 20px;
+    font-weight: 600;
+    height: 570px;
+    color: black;  
+    background-image: url("../img/zagreb.jpg");
+    opacity: 0.8;
+  }
+
+
   #main {
   float: left;
   transition: margin-left .5s;
@@ -128,6 +182,8 @@
 	</style>
 		<title>Croatia Event Calendar</title>
         <link rel="stylesheet" type="text/css" href="css/style.css" />
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <script src='https://kit.fontawesome.com/a076d05399.js'></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.js"></script>
         

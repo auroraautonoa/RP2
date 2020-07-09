@@ -34,6 +34,8 @@ ul {
   body {
     margin: 0;
     font-family: Arial, Helvetica, sans-serif;
+    background-color: #cccccc;
+
   }
   
   .div-image {
@@ -94,7 +96,7 @@ ul {
   .div-main {
     background-image: url("../img/table-background.jpg");
     opacity: 0.8;
-    background-color: #cccccc;
+    background-color: #e9e0e0;
     width: 100%;
     height: 629px;
   }
@@ -125,22 +127,15 @@ ul {
     transform: translate(-50%, -50%);
     color: black;  
   }
-
-
-  /*
-    .div-table-add {
-    text-align: left;
-    position: absolute;
-    top: 30%;
+  .all-events {
     font-family: "Palatino Linotype", "Book Antiqua", serif;
     font-size: 20px;
-    font-weight: 400;
-    left: 50%;
-    width: 500px;
-    height: 200px;
-    transform: translate(-50%, -50%);
+    font-weight: 600;
+    height: 569px;
     color: black;  
-  }*/
+    background-image: url("../img/zagreb.jpg");
+    opacity: 0.8;
+  }
 
 
 
@@ -203,33 +198,12 @@ ul {
   }
 
 
-  /*.forecast {
-    font-family: "Palatino Linotype", "Book Antiqua", serif;
-    font-size: 10px;
-    font-weight: 400;
-    background-color: #cccccc;
-    position: relative; 
-    bottom: 0;
-    width: 500px;
-    height: 200px;
-  }*/
-
-  /*table {
-    font-family: "Palatino Linotype", "Book Antiqua", serif;
-    font-size: 20px;
-    font-weight: 400;
-    background-color: #cccccc;
-    width: 80%; 
-    position: absolute; 
-}
-
-  tr:nth-child(odd){
-    background-color: #b1acac;
-    color: black;
-  }*/
-
   .div-navigation-bar {
     font-family: "Palatino Linotype", "Book Antiqua", serif;
     font-size: 15px;
     font-weight: 500;
+  }
+
+  .table-events{
+border: 1px solid black;
   }
