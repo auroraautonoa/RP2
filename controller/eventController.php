@@ -18,6 +18,10 @@ class EventController{
 		if( isset($_POST['dolazim']) ){
 			$ls->userIsComing( $event_id, $ls->getIdByUsername($_SESSION['username']) );
 		}
+		if( isset($_POST['ne_dolazim']) ){
+			$ls->userIsNotComing( $event_id, $ls->getIdByUsername($_SESSION['username']) );
+		}
+
 			$title = $ls->getEventTitle($event_id);
 		if (isset($_SESSION['username'])){
 			$current_user_id = $ls->getIdByUsername($_SESSION['username']);

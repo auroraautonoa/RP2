@@ -10,17 +10,13 @@
     <div class="div-image" id="div-image">
         <div class="div-text" id="div">
             <h1 style="font-size:50px">CROATIA EVENT CALENDAR</h1>
-            <form action="index.php?rt=event/show_events" method="post">
+            <form id="search_form" action="index.php?rt=event/show_events" method="post">
                 <input type="text" id="search" name="search" onkeyup="show_results()" placeholder="Search.." autocomplete="off">
-	    </form>
-
-            <!-- ode bi tribala ici tablica s prikazom svih evenata i ono sortiranje -->
-            <!-- za sortiranje po gradu i temi mozemo ucitavat iz ovog txtboxa iznad, a za vrijeme mozda oni kalendar sta iskoci -->
 
 	<ul class="x" id="myUL">
 		
 	</ul>
-
+	</form>
         </div>
 	
 	</div>
@@ -55,8 +51,7 @@ function show_results(){
 			success: function(data){
 				$('#myUL').html('');
 				for(i=0; i<data.show_results.length; i++){
-					console.log(data.show_results[i]);
-					$('#myUL').append('<li style="cursor:pointer" class="search" onclick="obradi('+i+')" id="'+i+'">'+data.show_results[i]+'</li><br>');
+					$('#myUL').append('<li style="cursor:pointer" class="search" onclick="document.getElementById(\'search_form\').submit();" id="'+i+'" onmouseenter="obradi_enter('+i+')" onmouseleave="obradi_leave('+i+')">'+data.show_results[i]+'</li><br>');
 				}
 		
 			},
@@ -66,10 +61,18 @@ function show_results(){
 	});
 
 }
-function obradi(x){
-	li = document.getElementById(x);
+
+function obradi_enter(x){
+	document.getElementById(x).style.backgroundColor="blue";
+	var li = document.getElementById(x);
 	input = document.getElementById("search");
 	input.value = li.innerText;
 }
+
+function obradi_leave(x){
+	document.getElementById(x).style.backgroundColor="gray";
+}
+
+
 
 </script>

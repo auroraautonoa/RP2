@@ -13,13 +13,17 @@
 </td></tr>
 <tr><td style="background-color: #cccccc">
 		Dolazi: <?php echo $event->dolazi ?>
-		<?php if (isset($_SESSION['username'])) if( $coming == 0 ){ 
-			echo '<form action="index.php?rt=event/'.$event->id.'" method="post">';
-			echo '<button type="submit" name="dolazim">Dolazim!</button></form>';
+		<?php if (isset($_SESSION['username'])){
+		        if( $coming == 0 ){ 
+			   echo '<form action="index.php?rt=event/'.$event->id.'" method="post">';
+			   echo '<button type="submit" name="dolazim">Dolazim!</button></form>';
 			}
 			else{
 				echo "<br><br>Dolazim na ovaj event!";
+				echo '<form action="index.php?rt=event/'.$event->id.'" method="post">';
+			   	echo '<button type="submit" name="ne_dolazim">Ne dolazim!</button></form>';
 			}
+		  }
 		?> </td></tr>
 		<tr><td>
 		<?php echo $event->opis ?>

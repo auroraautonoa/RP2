@@ -307,4 +307,20 @@ class EventService{
         $st->execute(array('val' => $value, 'id' => $id_event));	
     }
 
+    public function userIsNotComing($id_event, $id_user){
+        $db = DB::getConnection();
+        $st = $db->prepare( 'DELETE FROM dolazi WHERE id_event=:id_event AND id_user=:id_user' );
+        $st->execute(array('id_event' => $id_event, 'id_user' => $id_user ));
+
+        $st = $db->prepare( 'SELECT dolazi FROM events WHERE id=:id' );
+        $st->execute(array('id' => $id_event));
+
+        $row = $st->fetch();
+        $value = $row['dolazi'] - 1;
+
+        $st = $db->prepare( 'UPDATE events SET dolazi=:val WHERE id=:id' );
+        $st->execute(array('val' => $value, 'id' => $id_event));	
+    }
+
+
 }
