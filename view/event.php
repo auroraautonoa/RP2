@@ -1,45 +1,41 @@
 <?php require_once 'header.php'; ?>
 
-<div id = "event details">
-	<h1><?php echo $event->naslov;?></h1>
-	Mjesto održavanja: <?php if ($event->mjesto != '') echo $event->mjesto . ', '; echo $event->grad?>
-	<br>
-	Početak: <?php echo $event->datum_pocetak . ' u ' . $event->vrijeme_pocetak;?>
-	<br>
-	Kraj: <?php echo $event->datum_kraj . ' u ' . $event->vrijeme_kraj;?>
-	<br>
-	Dolazi: <?php echo $event->dolazi ?>
-	<?php if (isset($_SESSION['username'])) if( $coming == 0 ){ 
-		echo '<form action="index.php?rt=event/'.$event->id.'" method="post">';
-		echo '<button type="submit" name="dolazim">Dolazim!</button></form>';
-	       }
-	      else{
-			echo "<br><br>Dolazim na ovaj event!";
-		}
- 	?>
-	<br><br>
-	Opis događaja: <?php echo $event->opis ?>
-</div>
+<div id = "event details" class="div-event">
+	<table>
+		<h1 style="text-align:center"><?php echo $event->naslov;?></h1> <br> 
+		<tr><td>
+		<?php if ($event->mjesto != '') echo $event->mjesto . ', '; echo $event->grad?>
+		&nbsp
+		( <?php echo $event->datum_pocetak . ' u ' . $event->vrijeme_pocetak;?>
+		
+		, <?php echo $event->datum_kraj . ' u ' . $event->vrijeme_kraj;?>
+		)
+</td></tr>
+<tr><td style="background-color: #cccccc">
+		Dolazi: <?php echo $event->dolazi ?>
+		<?php if (isset($_SESSION['username'])) if( $coming == 0 ){ 
+			echo '<form action="index.php?rt=event/'.$event->id.'" method="post">';
+			echo '<button type="submit" name="dolazim">Dolazim!</button></form>';
+			}
+			else{
+				echo "<br><br>Dolazim na ovaj event!";
+			}
+		?> </td></tr>
+		<tr><td>
+		<?php echo $event->opis ?>
+		</td></tr>
+	</table>
 
 <br>
-<br>
+
 <table>
-    <tr>
-    <th>Komentar</th>
-	<th>Korisnik</th>
-	<th>Datum i vrijeme</th>
-	<th>Ocjena</th>
-
-
-    </tr>
 <?php
 	$i=0;
     foreach( $commentList as $comment ){
        	echo '<tr>' .
-		   '<td style="text-align:center">'. $comment->opis .'</td>' .
-		   '<td style="text-align:center">@'. $userList[$i] .'</td>' .
-		   '<td style="text-align:center">'. $comment->vrijeme_objave .'</td>' .
-		   '<td style="text-align:center">'.$comment->zvjezdice.'</td>'.
+		   '<td style="text-align:center">@'. $userList[$i].' '.$comment->vrijeme_objave.'</td></tr>' .
+		   '<tr><td style="text-align:right; background-color:#cccccc">'. $comment->opis .'</td>' .
+		   '<td style="text-align:right; background-color:#cccccc">'.$comment->zvjezdice.'</td>'.
         '</tr>';
 	$i++;
     }
@@ -52,7 +48,8 @@
 if (isset($_SESSION['username'])){
 ?>
 <form action="<?php echo 'index.php?rt=event/'.$event->id ?>" method="post">
-<textarea name="comment" rows = "10" cols = "50" placeholder="Napišite komentar..."></textarea>
+<textarea name="comment" rows = "10" cols = "60" placeholder="Napišite komentar..."></textarea>
+<br>
 <input type="radio" id="1" name="ocjena" value="1">
 <label for="1">1</label>
 <input type="radio" id="2" name="ocjena" value="2">
@@ -68,11 +65,13 @@ if (isset($_SESSION['username'])){
 <?php
 }
 ?>
+</div>
 
-<div id="forecast"></div>
+
+<div id="forecast" class="div-event-for"></div>
 
 <script>
-	var daysnum = 3;
+	var daysnum = 1;
 	$.ajax(
 	{
 		url:"https://api.weatherbit.io/v2.0/forecast/daily",

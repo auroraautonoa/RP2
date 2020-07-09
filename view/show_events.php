@@ -35,7 +35,7 @@
 	</div>
 	<div id="events"  class="all-events">
 		<br>
-			<table class="table" style="margin-left: 30%">
+			<table class="table-event" style="margin-left: 30%">
 			<?php
 			for($i = 0; $i < count($eventList) / 5; $i++){
 				for ($j = 0; $j < 5; $j++){
