@@ -17,5 +17,10 @@
         </div>
     </div>
 	</form>
-	<?php echo $message ?>
+	<?php 
+	echo '<label class="message">';
+	echo $message;
+	echo '</label>';
+	
+	?>
 <?php require_once 'footer.php';?>

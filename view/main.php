@@ -23,8 +23,13 @@
 
         </div>
 	
-    </div>
-	<?php echo $message ?>
+	</div>
+	<?php 
+		echo '<label class="message">';
+		echo $message;
+		echo '</label>';
+	?>
+
 <?php require_once 'footer.php';?>
 
 <script>
@@ -51,7 +56,7 @@ function show_results(){
 				$('#myUL').html('');
 				for(i=0; i<data.show_results.length; i++){
 					console.log(data.show_results[i]);
-					$('#myUL').append('<li style="cursor:pointer" onclick="obradi('+i+')" id="'+i+'">'+data.show_results[i]+'</li><br>');
+					$('#myUL').append('<li style="cursor:pointer" class="search" onclick="obradi('+i+')" id="'+i+'">'+data.show_results[i]+'</li><br>');
 				}
 		
 			},

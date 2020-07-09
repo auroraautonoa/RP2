@@ -29,8 +29,11 @@
     <button class="button" id="btnRegistracija" type="submit">REGISTRIRAJ SE</button>	
         </div>
     </div>
-	<br>
-	<?php echo $message; ?>
+	<?php 
+		echo '<label class="message">';
+		echo $message;
+		echo '</label>';
+	?>
 	</form>
 
 <?php require_once 'footer.php';?>

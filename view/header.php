@@ -86,7 +86,7 @@
   .sidebar li {
   padding: 8px 8px 8px 32px;
   text-decoration: none;
-  font-size: 25px;
+  font-size: 15px;
   color: white;
   display: block;
   transition: 0.3s;
@@ -211,6 +211,25 @@ table.table-event tr:nth-child(even) {
     background-color: #cccccc;
     height: 630px;
     color: #cccccc;
+  }
+
+  .message{
+    font-family: "Palatino Linotype", "Book Antiqua", serif;
+    font-size: 20px;
+    font-weight: 200;
+    color: red;
+  }
+
+  .search{
+    font-family: "Palatino Linotype", "Book Antiqua", serif;
+    font-size: 15px;
+    width: 300px;
+    height: 30px;
+    padding: 10px;
+    opacity: 0.8;
+    color: #cccccc;
+    background-color:#808080;
+
   }
 
   #main {
