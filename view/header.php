@@ -266,6 +266,12 @@ table.table-event tr:nth-child(even) {
         echo '<a href="#" onclick="document.getElementById(\'de\').submit();">Obrisi event</a></form>';
 
       }
+     if( isset($_SESSION['admin']) ){
+	echo '<form id = "ze" action="index.php?rt=event/try_delete_user" method="post">';
+        echo '<a href="#" onclick="document.getElementById(\'ze\').submit();">Obrisi korisnika</a></form>';
+
+      }
+
     ?>
     </div>
       <div id="main">

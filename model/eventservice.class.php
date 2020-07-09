@@ -275,6 +275,7 @@ class EventService{
     }
    
     public function checkIfComing($id_event, $id_user){
+	$dolazi = [];
         $coming = 0;
         $db = DB::getConnection();
         $st = $db->prepare( 'SELECT * FROM dolazi' );
@@ -321,6 +322,42 @@ class EventService{
         $st = $db->prepare( 'UPDATE events SET dolazi=:val WHERE id=:id' );
         $st->execute(array('val' => $value, 'id' => $id_event));	
     }
+
+    public function deleteUser($id_user){
+	$dolazi = [];
+
+	$db = DB::getConnection();
+	$st = $db->prepare( 'DELETE FROM users WHERE id=:id_user' );
+	$st->execute(array('id_user' => $id_user));
+
+	$st = $db->prepare( 'DELETE FROM komentari WHERE id_user=:id_user' );
+	$st->execute(array('id_user' => $id_user));
+
+	$st = $db->prepare( 'SELECT * FROM dolazi WHERE id_user=:id_user' );
+	$st->execute(array('id_user' => $id_user));
+
+	while ($row = $st->fetch())
+            $dolazi[] = new Dolazi ($row['id_event'], $row['id_user'] );
+
+	foreach( $dolazi as $dolaz ){
+		$st = $db->prepare( 'SELECT dolazi FROM events WHERE id=:id' );
+        	$st->execute(array('id' => $dolaz->id_event));
+
+       		$row = $st->fetch();
+        	$value = $row['dolazi'] - 1;
+
+		$st = $db->prepare( 'UPDATE events SET dolazi=:val WHERE id=:id' );
+		$st->execute(array('val' => $value, 'id' => $dolaz->id_event));
+	}
+
+	$st = $db->prepare( 'DELETE FROM dolazi WHERE id_user=:id_user' );
+	$st->execute(array('id_user' => $id_user));
+
+	$st = $db->prepare( 'DELETE FROM events WHERE id_user=:id_user' );
+	$st->execute(array('id_user' => $id_user));
+
+    }
+
 
 
 }

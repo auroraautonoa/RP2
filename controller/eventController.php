@@ -105,6 +105,22 @@ class EventController{
 		require_once __DIR__ . '/../view/delete_event.php';
 	}
 
+	public function try_delete_user(){
+		$message = '';
+		$ls = new EventService;
+		$userList = $ls->getAllUsers();
+		require_once __DIR__ . '/../view/delete_user.php';
+	}
+
+	public function delete_user(){
+		$message = '';
+		$ls = new EventService;
+		$ls->deleteUser($_POST['delete']);
+		$userList = $ls->getAllUsers();
+		$message = "Uspjesno ste izbrisali korisnika!";
+		require_once __DIR__ . '/../view/delete_user.php';
+	}
+
 	public function my_events(){
 		$message = '';
 		$ls = new EventService;
