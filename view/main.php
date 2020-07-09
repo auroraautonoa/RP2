@@ -44,7 +44,7 @@ function show_results(){
 				$('#myUL').html('');
 				for(i=0; i<data.show_results.length; i++){
 					console.log(data.show_results[i]);
-					$('#myUL').append('<li onclick="obradi('+i+')" id="'+i+'">'+data.show_results[i]+'</li><br>');
+					$('#myUL').append('<li style="cursor:pointer" onclick="obradi('+i+')" id="'+i+'">'+data.show_results[i]+'</li><br>');
 				}
 		
 			},
@@ -56,7 +56,8 @@ function show_results(){
 }
 function obradi(x){
 	li = document.getElementById(x);
-	console.log(li);
+	input = document.getElementById("search");
+	input.value = li.innerText;
 }
 
 </script>
