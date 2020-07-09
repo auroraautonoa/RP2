@@ -29,6 +29,13 @@
 
 <script>
 
+$(document).ready(function(){
+    $(document).on('click', function(){
+ 	  $('#myUL').html('');
+    });
+});
+
+
 function show_results(){
 	input = document.getElementById("search");
 	console.log(input.value);
