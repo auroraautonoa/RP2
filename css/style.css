@@ -185,3 +185,26 @@ ul {
   .table-events{
 border: 1px solid black;
   }
+  .div-event {
+    text-align: justify;
+    position: absolute;
+    top: 20%;
+    font-family: "Palatino Linotype", "Book Antiqua", serif;
+    font-size: 15px;
+    font-weight: 400;
+    left: 50%;
+    width: 500px;
+    height: 180px;
+    transform: translate(-50%, -50%);
+    color: black;  
+  }
+
+
+  .div-event-for {
+    background-image: url("../img/zagreb.jpg");
+    font-family: "Palatino Linotype", "Book Antiqua", serif;
+    font-size: 15px;
+    font-weight: 200;
+    background-color: #cccccc;
+    height: 630px;
+  }

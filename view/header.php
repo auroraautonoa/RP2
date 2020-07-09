@@ -123,6 +123,7 @@
 
   .table-event{
     width: 600px;
+    margin-left: 0px;
     border-radius: 5px;
     background-color: #e9e0e0;
     border-collapse: separate;
@@ -175,8 +176,8 @@ table.table-event tr:nth-child(even) {
   }
 
   textarea {
-  width: 100%;
-  height: 150px;
+  width: 600px;
+  height: 100px;
   padding: 12px 20px;
   box-sizing: border-box;
   border: 2px solid #ccc;
@@ -208,7 +209,8 @@ table.table-event tr:nth-child(even) {
     font-size: 15px;
     font-weight: 200;
     background-color: #cccccc;
-    height: 700px;
+    height: 630px;
+    color: #cccccc;
   }
 
   #main {

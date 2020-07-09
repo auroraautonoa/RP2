@@ -1,8 +1,8 @@
 <?php require_once 'header.php'; ?>
 
 <div id = "event details" class="div-event">
-	<table>
-		<h1 style="text-align:center"><?php echo $event->naslov;?></h1> <br> 
+	<table class="table-event">
+		<h1 style="text-align:center; color:#cccccc"><?php echo $event->naslov;?></h1> <br> 
 		<tr><td>
 		<?php if ($event->mjesto != '') echo $event->mjesto . ', '; echo $event->grad?>
 		&nbsp
@@ -33,17 +33,15 @@
 	$i=0;
     foreach( $commentList as $comment ){
        	echo '<tr>' .
-		   '<td style="text-align:center">@'. $userList[$i].' '.$comment->vrijeme_objave.'</td></tr>' .
-		   '<tr><td style="text-align:right; background-color:#cccccc">'. $comment->opis .'</td>' .
-		   '<td style="text-align:right; background-color:#cccccc">'.$comment->zvjezdice.'</td>'.
+		   '<td style="text-align:center; color: #cccccc; font-size:16px; font-weight: 600">@'. $userList[$i].' '.$comment->vrijeme_objave.'</td></tr>' .
+		   '<tr> <td style="text-align:right; color:#cccccc">'. $comment->opis .'</td>' .
+		   '<td style="text-align:right; color:#cccccc">'.$comment->zvjezdice.'</td>'.
         '</tr>';
 	$i++;
-    }
-
-?>
-        
+	}
+?>   
 </table>
-
+<br>
 <?php 
 if (isset($_SESSION['username'])){
 ?>
@@ -84,7 +82,10 @@ if (isset($_SESSION['username'])){
 		type:"GET",
 		dataType: "json",
 		success: function(data){
+			$('#forecast').append("<br><br><br>");
 			$('#forecast').append("<br><br>");
+
+
 			for (var i = 0; i < daysnum; i++){
 				$('#forecast').append("Prognoza za  <?php echo $event->grad;?> ", data.data[i]['datetime'], ":<br>");
 				$('#forecast').append("<span style='padding-left:2em'>Najviša temperatura: ", data.data[i]['max_temp'], "</span><br>");
