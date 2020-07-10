@@ -32,7 +32,7 @@ $(document).ready(function(){
 
 function show_results(){
 	input = document.getElementById("search");
-	console.log(input.value);
+	user_input = input.value;
 	$.ajax({
 			url: '../projekt/model/show_results.php',
 			data:
@@ -43,7 +43,9 @@ function show_results(){
 			dataType: "json",
 			success: function(data){
 				$('#myUL').html('');
-				for(i=0; i<data.show_results.length; i++){
+				var length = data.show_results.length;
+				if( length > 6 ){ length = 6; }
+				for(i=0; i<length; i++){
 					$('#myUL').append('<li style="cursor:pointer" class="search" onclick="document.getElementById(\'search_form\').submit();" id="'+i+'" onmouseenter="obradi_enter('+i+')" onmouseleave="obradi_leave('+i+')">'+data.show_results[i]+'</li><br>');
 				}
 		
@@ -64,6 +66,8 @@ function obradi_enter(x){
 
 function obradi_leave(x){
 	document.getElementById(x).style.backgroundColor="gray";
+	input = document.getElementById("search");
+	input.value = user_input;
 }
 
 
