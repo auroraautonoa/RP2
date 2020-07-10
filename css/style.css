@@ -127,15 +127,6 @@ ul {
     transform: translate(-50%, -50%);
     color: black;  
   }
-  .all-events {
-    font-family: "Palatino Linotype", "Book Antiqua", serif;
-    font-size: 20px;
-    font-weight: 600;
-    height: 569px;
-    color: black;  
-    background-image: url("../img/zagreb.jpg");
-    opacity: 0.8;
-  }
 
 
 
@@ -183,7 +174,7 @@ ul {
   }
 
   .table-events{
-border: 1px solid black;
+    border: 1px solid black;
   }
   .div-event {
     text-align: justify;
@@ -323,19 +314,21 @@ border: 1px solid black;
   }
 
   .table-event{
-    width: 600px;
-    margin-left: 0px;
+    margin-left:5%;
+    margin-right:5%;
     border-radius: 5px;
     background-color: #e9e0e0;
     border-collapse: separate;
-
   }
   table.table-event td, th {
-  padding: 5px 10px;
+    padding: 5px 10px;
+    width: 25%;
+  }
 
+table.table-event tr:nth-child(even) td:nth-child(even){
+  background: #808080;
 }
-
-table.table-event tr:nth-child(even) {
+table.table-event tr:nth-child(odd) td:nth-child(odd){
   background: #808080;
 }
 
@@ -374,6 +367,7 @@ table.table-event tr:nth-child(even) {
     color: black;  
     background-image: url("../img/zagreb.jpg");
     opacity: 0.8;
+    overflow-y: scroll;
   }
 
   textarea {
@@ -389,19 +383,20 @@ table.table-event tr:nth-child(even) {
 
 
 .div-event {
-    background-image: url("../img/event.jpg");
-    text-align: justify;
-    position: absolute;
-    top: 20%;
-    font-family: "Palatino Linotype", "Book Antiqua", serif;
-    font-size: 15px;
-    font-weight: 400;
-    left: 50%;
-    width: 500px;
-    height: 180px;
-    transform: translate(-50%, -50%);
-    color: black;  
-  }
+  background-image: url("../img/event.jpg");
+  text-align: justify;
+  position: absolute;
+  top: 50%;
+  font-family: "Palatino Linotype", "Book Antiqua", serif;
+  font-size: 15px;
+  font-weight: 400;
+  left: 50%;
+  width: 650px;
+  height: 620px;
+  transform: translate(-50%, -50%);
+  color: black;  
+  overflow-y: scroll;
+}
 
 
   .div-event-for {

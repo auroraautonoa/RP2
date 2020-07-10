@@ -35,25 +35,25 @@
 	</div>
 	<div id="events"  class="all-events">
 		<br>
-			<table class="table-event" style="margin-left: 30%">
+			<table class="table-event" >
 			<?php
-			for($i = 0; $i < count($eventList) / 5; $i++){
-				for ($j = 0; $j < 5; $j++){
-					echo '<tr>';
-					if ($i * 5 + $j < count($eventList)){
+			for($i = 0; $i < count($eventList) / 3; $i++){
+				echo '<tr>';
+				for ($j = 0; $j < 3; $j++){
+					if ($i * 3 + $j < count($eventList)){
 						echo '<td><i class="fa fa-stop" style="color: #bfbfbf; font-size: 1.73em"></i> ';
-						echo '<a href="index.php?rt=event/'.$eventList[$i * 5+$j]->id.'">'.$eventList[$i * 5+$j]->naslov.'</a>'; 
+						echo '<a href="index.php?rt=event/'.$eventList[$i * 3+$j]->id.'">'.$eventList[$i * 3+$j]->naslov.'</a>'; 
 						echo '<br>';
 						echo '&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp';
-						echo $eventList[$i * 5+$j]->datum_pocetak . ' - ' . $eventList[$i+$j]->datum_kraj;
+						echo $eventList[$i * 3+$j]->datum_pocetak . ' - ' . $eventList[$i+$j]->datum_kraj;
 						echo '<br>';
 						echo '&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp';
-						echo $eventList[$i * 5+$j]->grad;
+						echo $eventList[$i * 3+$j]->grad;
 						echo '<br>';
 						echo '</td>';
 					}
 				}
-				echo '</tr>';
+			echo '</tr>';
 			}
 			echo '</table>';
 		?>
