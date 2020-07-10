@@ -63,15 +63,15 @@ if (isset($_SESSION['username'])){
 <textarea name="comment" rows = "10" cols = "60" placeholder="Napišite komentar..."></textarea>
 <br>
 <input type="radio" id="1" name="ocjena" value="1">
-<label for="1">1</label>
+<label for="1" style="color:#51C01A;">1</label>
 <input type="radio" id="2" name="ocjena" value="2">
-<label for="2">2</label>
+<label for="2" style="color:#51C01A;">2</label>
 <input type="radio" id="3" name="ocjena" value="3" checked = "checked">
-<label for="3" >3</label>
+<label for="3" style="color:#51C01A;" >3</label>
 <input type="radio" id="4" name="ocjena" value="4">
-<label for="4">4</label>
+<label for="4" style="color:#51C01A;">4</label>
 <input type="radio" id="5" name="ocjena" value="5">
-<label for="5">5</label>
+<label for="5" style="color:#51C01A;">5</label>
 <button type = "submit">Objavi komentar</button>
 </form>
 <?php
