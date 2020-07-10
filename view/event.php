@@ -40,7 +40,7 @@
     foreach( $commentList as $comment ){
        	echo '<tr>' .
 		   '<td style="text-align:left; color: #F8F3F3; font-size:16px; font-weight: 600">@'. $userList[$i].' '.$comment->vrijeme_objave.'</td></tr>' .
-		   '<tr> <td style="text-align:right; color:#000000; text-shadow: white 0px 0px 3px; font-weight: 600">'. $comment->opis .'</td>';
+		   '<tr> <td style="width:50%; text-align:center; color:#000000; text-shadow: white 0px 0px 3px; font-weight: 600">'. $comment->opis .'</td>';
 		   echo '<td style="text-align:center; color:#000000;text-shadow: black 0px 0px 10px; font-weight: 600">';
 		   echo '&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp';
 		   for( $j=1; $j <= 5; $j++){
