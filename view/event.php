@@ -1,5 +1,12 @@
 <?php require_once 'header.php'; ?>
 
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+.checked {
+  color: orange;
+}
+</style>
+
 <div id = "event details" class="div-event">
 	<table class="table-event">
 		<h1 style="text-align:center; color:#cccccc"><?php echo $event->naslov;?></h1> <br> 
@@ -37,9 +44,16 @@
 	$i=0;
     foreach( $commentList as $comment ){
        	echo '<tr>' .
-		   '<td style="text-align:center; color: #cccccc; font-size:16px; font-weight: 600">@'. $userList[$i].' '.$comment->vrijeme_objave.'</td></tr>' .
-		   '<tr> <td style="text-align:right; color:#cccccc">'. $comment->opis .'</td>' .
-		   '<td style="text-align:right; color:#cccccc">'.$comment->zvjezdice.'</td>'.
+		   '<td style="text-align:left; color: #F8F3F3; font-size:16px; font-weight: 600">@'. $userList[$i].' '.$comment->vrijeme_objave.'</td></tr>' .
+		   '<tr> <td style="text-align:right; color:#000000; text-shadow: white 0px 0px 3px; font-weight: 600">'. $comment->opis .'</td>';
+		   echo '<td style="text-align:center; color:#000000;text-shadow: black 0px 0px 10px; font-weight: 600">';
+		   for( $j=1; $j <= 5; $j++){
+		   	if( $j <= $comment->zvjezdice ){
+				echo '<span class="fa fa-star checked"></span>';
+			}
+			else{ echo '<span class="fa fa-star "></span>'; }
+		   }
+	echo '</td>'.
         '</tr>';
 	$i++;
 	}

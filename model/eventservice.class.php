@@ -242,8 +242,13 @@ class EventService{
 	$db = DB::getConnection();
 	$st = $db->prepare( 'DELETE FROM events WHERE id=:id_event' );
 	$st->execute(array('id_event' => $id_event));
+
 	$st = $db->prepare( 'DELETE FROM komentari WHERE id_event=:id_event' );
-	$st->execute(array('id_event' => $id_event));	
+	$st->execute(array('id_event' => $id_event));
+
+	$st = $db->prepare( 'DELETE FROM dolazi WHERE id_event=:id_event' );
+	$st->execute(array('id_event' => $id_event));
+
     }
 
     public function getEventsById($id){
