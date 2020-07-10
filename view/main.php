@@ -1,12 +1,5 @@
 <?php require_once 'header.php'; ?>
 
-    <style>
-	ul.x{
-		position: absolute;
-		top:110%;
-
-	}
-    </style>
     <div class="div-image" id="div-image">
         <div class="div-text" id="div">
             <h1 style="font-size:50px">CROATIA EVENT CALENDAR</h1>

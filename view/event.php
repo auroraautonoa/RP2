@@ -1,11 +1,6 @@
 <?php require_once 'header.php'; ?>
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<style>
-.checked {
-  color: orange;
-}
-</style>
 
 <div id = "event details" class="div-event">
 	<table class="table-event">
