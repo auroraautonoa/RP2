@@ -2,7 +2,7 @@
     <div class="div-main" >
         <div class="div-table">
 	<form action="index.php?rt=event/delete_user" method="post">
-		<select name="delete">
+		<select name="delete" style="width:60%;" >
 			<option value = 'null' selected = "true">Odaberi korisnika</option>
 				<?php
 					for($i = 0; $i < count($userList); $i++){
@@ -10,6 +10,7 @@
 					}
 				?>
 		</select>
+		<br>
 		<button class="button" id="btnDelete" type="submit">OBRISI KORISNIKA</button>
 	</form>
 
