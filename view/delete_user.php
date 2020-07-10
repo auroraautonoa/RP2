@@ -6,6 +6,7 @@
 			<option value = 'null' selected = "true">Odaberi korisnika</option>
 				<?php
 					for($i = 0; $i < count($userList); $i++){
+						if( $userList[$i]->username == $_SESSION['username'] ){ continue; }
 						echo '<option value="'.$userList[$i]->id. '">('.$userList[$i]->id.')'.$userList[$i]->username.'</option>';
 					}
 				?>
